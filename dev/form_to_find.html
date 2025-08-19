@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM"
+      crossorigin="anonymous"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Fjalla+One&family=Playwrite+VN:wght@100..400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/find_car.css" />
+    <link rel="stylesheet" href="css/main.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+  </head>
+  <body>
+     <header>
+        <div class="container">
+            <div class="header-content">
+                <img class="header-content_logo" src="images/logo.png">
+                <nav>
+                    <a href="main.html" class="check">Главная</a>
+                    <a href="about.html">О нас</a>
+                    <a href="profile.html">Профиль</a>
+                    <a href="form_to_find.html">Поиск автомобилей</a>
+
+                </nav>
+                <div class="header-content_last">
+                    <a href="login.html">Авторизация</a>
+                    <a href="sign_in.html">Регистрация</a>
+                </div>
+            </div>
+        </div>
+    </header>
+    <div class="row">
+      <div class="container mt-5">
+        <div class="row justify-content-center">
+          <div class="col-md-9 bg-white p-4 mb-5 mx-2 rounded custom-shadow">
+            <h2 class="text-center mb-4">Поиск автомобиля</h2>
+            <form>
+              <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label for="id_first_name" class="form-label">Марку</label>
+                    <select class="form-select" aria-label="Default select example">
+                    <option selected>Выберите марку</option>
+                    <option value="1">One</option>
+                    <option value="2">Two</option>
+                    <option value="3">Three</option>
+                    </select>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="id_first_name" class="form-label">Модель</label>
+                    <select class="form-select" aria-label="Default select example">
+                    <option selected>Выберите модель</option>
+                    <option value="1">One</option>
+                    <option value="2">Two</option>
+                    <option value="3">Three</option>
+                    </select>
+                </div>
+                <div class="col-md-6 mb-3">
+                  <label for="id_first_name" class="form-label">Максимальный пробег</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="id_first_name"
+                    placeholder="Введите максимальный пробег"
+                    name="first_name"
+                  />
+                </div>
+                <div class="col-md-6 mb-3">
+                  <label for="id_first_name" class="form-label">Объем двигателя</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="id_first_name"
+                    placeholder="Введите объем двигателя"
+                    name="first_name"
+                  />
+                </div>
+                <div class="col-md-6 mb-3">
+                  <label for="id_first_name" class="form-label">Год выпуска</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="id_first_name"
+                    placeholder="Введите год выпуска автомобиля"
+                    name="first_name"
+                  />
+                </div>
+                <div class="col-md-6 mb-3">
+                  <label for="id_first_name" class="form-label">Тип топлива</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="id_first_name"
+                    placeholder="Введите тип топлива"
+                    name="first_name"
+                  />
+                </div>
+                <div class="col-md-6 mb-3">
+                  <label for="id_first_name" class="form-label">Минимальная Цена</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="id_first_name"
+                    placeholder="Введите минимальную цену"
+                    name="first_name"
+                  />
+                </div>
+                <div class="col-md-6 mb-3">
+                  <label for="id_first_name" class="form-label">Максимальная цена</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="id_first_name"
+                    placeholder="Введите максимальную цену"
+                    name="first_name"
+                  />
+                </div>
+                
+              </div>
+                
+              <button type="submit" class="btn btn-dark btn-block">
+                Найти
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <section class="catalog">
+    <div class="container">
+        <div class="form_block"> 
+          <div class="dropdown mb-2">
+            <button class="button_style" type="button" data-bs-toggle="dropdown"
+                    aria-expanded="false">
+               Фильтрация автомобилей по параметрам
+            </button>
+
+            <form class="dropdown-menu bg-dark" >
+                <p class="text-white mx-3 mt-3">Сортировать:</p>
+                <div class="form-check text-white mx-3">
+                    <input class="form-check-input" type="radio" name="order_by" id="flexRadioDefault1" >
+                    <label class="form-check-label" for="flexRadioDefault1">
+                        По умолчанию
+                    </label>
+                </div>
+                <div class="form-check text-white mx-3">
+                    <input class="form-check-input" type="radio" name="order_by" id="flexRadioDefault2" value="price" >
+                    <label class="form-check-label" for="flexRadioDefault2">
+                        От дешевых к дорогим
+                    </label>
+                </div>
+                <div class="form-check text-white mx-3">
+                    <input class="form-check-input" type="radio" name="order_by" id="flexRadioDefault3" value="-price" >
+                    <label class="form-check-label" for="flexRadioDefault3">
+                        От дорогих к дешевым
+                    </label>
+                </div>
+                <div class="but_submit">
+                  <button type="submit" class="btn btn-success">Применить</button>
+                </div>
+            </form>
+          </div>
+        </div>
+        
+        <div class="menu-items">
+            <div class="menu-item">
+                <img src="images/bmw1.png">
+                <h3>BMW</h3>
+                <div class="menu-item_reiting">
+                    <img src="images/star.png">
+                    <img src="images/star.png">
+                    <img src="images/star.png">
+                    <img src="images/star.png">
+                </div>
+                <p>
+                    Price: 30000$<br>
+                    Date: 2023<br>
+                    Mileage: 140000km<br>
+                
+                <div class="menu-item_last">
+                    <a href="#">read more</a>
+                </div>
+            </div>
+            <div class="menu-item">
+                <img src="images/audi 1.png">
+                <h3>AUDI</h3>
+                <div class="menu-item_reiting">
+                    <img src="images/star.png">
+                    <img src="images/star.png">
+                    <img src="images/star.png">
+                    <img src="images/star.png">
+                </div>
+                <p>
+                    Price: 25000$<br>
+                    Date: 2022<br>
+                    Mileage: 160000km<br>
+                </p>
+                <div class="menu-item_last">
+                    <a href="#">read more</a>
+                </div>
+            </div>
+            <div class="menu-item">
+                <img src="images/porshe.png">
+                <h3>PORSHE</h3>
+                <div class="menu-item_reiting">
+                    <img src="images/star.png">
+                    <img src="images/star.png">
+                    <img src="images/star.png">
+                    <img src="images/star.png">
+                </div>
+                <p>
+                    Price: 45000$<br>
+                    Date: 2024<br>
+                    Mileage: 120000km<br>
+                </p>
+                <div class="menu-item_last">
+                    <a href="#">read more</a>
+                </div>
+            </div>
+            <div class="menu-item">
+                <img src="images/volvo1.png">
+                <h3>VOLVO</h3>
+                <div class="menu-item_reiting">
+                    <img src="images/star.png">
+                    <img src="images/star.png">
+                    <img src="images/star.png">
+                    <img src="images/star.png">
+                </div>
+                <p>
+                    Price: 50000$<br>
+                    Date: 2023<br>
+                    Mileage: 80000km<br>
+                </p>
+                <div class="menu-item_last">
+                    <a href="#">read more</a>
+                </div>
+            </div>
+            <div class="menu-item">
+                <img src="images/gelik.png">
+                <h3>MERCEDES</h3>
+                <div class="menu-item_reiting">
+                    <img src="images/star.png">
+                    <img src="images/star.png">
+                    <img src="images/star.png">
+                    <img src="images/star.png">
+                </div>
+                <p>
+                    Price: 50000$<br>
+                    Date: 2022<br>
+                    Mileage: 130000km<br>
+                </p>
+                <div class="menu-item_last">
+                    <a href="#">read more</a>
+                </div>
+            </div>
+            <div class="menu-item">
+                <img src="images/geely.png">
+                <h3>GEELY</h3>
+                <div class="menu-item_reiting">
+                    <img src="images/star.png">
+                    <img src="images/star.png">
+                    <img src="images/star.png">
+                    <img src="images/star.png">
+                </div>
+                <p>
+                    Price: 32000$<br>
+                    Date: 2024<br>
+                    Mileage: 8000km<br>
+                </p>
+                <div class="menu-item_last">
+                    <a href="#">read more</a>
+                </div>
+            </div>
+        </div>
+        <div class="menu-pag">
+            <a class="back" href="#"><span><</span></a>
+
+            <a class="page" href="#"><span>1</span></a>
+            <a class="page" href="#"><span>2</span></a>
+             
+            <a class="dot" href="#"><span>...</span></a>
+            <a class="next" href="#"><span>></span></a>
+
+        </div>
+    </div>
+</section>
+  </body>
+</html>

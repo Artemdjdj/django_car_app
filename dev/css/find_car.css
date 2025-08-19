@@ -1,0 +1,27 @@
+
+
+body {
+    background-color: rgba(0, 0, 0, 0.74);
+    
+
+
+.form_block{
+    display:flex;
+    justify-content: center;
+    margin-bottom:100px;
+    margin-top:0px;
+}
+
+.button_style {
+    padding:12px 15px;
+    font-size:18px;
+    background-color: rgba(8, 10, 8, 0.747);
+    color:azure;
+    border-radius: 7px;
+    border:none;
+}
+
+.but_submit{
+    display:flex;
+    justify-content: center;
+}
