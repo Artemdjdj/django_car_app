@@ -1,0 +1,56 @@
+{% extends 'layouts/base.html' %}
+{% load static %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'css/about.css'%}">
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+{% endblock css %}
+
+
+{% block content%}
+    <div class="wrapper">
+        
+        <div class="inform">
+            <div class="information">
+                <div class="info-card">
+                    <h1>Адресс</h1>
+                    <p>Улица Пушкинская 123</p>
+                    <p>Minsk</p>
+                </div>
+                <div class="info-card">
+                    <h1>Телефон</h1>
+                    <p>+123456789</p>
+                </div>
+                <div class="info-card">
+                    <h1>Email</h1>
+                    <p>best_car_in_minsk@gmail.com</p>
+                </div>
+            </div>
+            <div class="forming">
+                <form action="">
+                    <h1>
+                        Оцените нашу работу
+                    </h1>
+                    
+                    <div class="input-box_big">
+                        <textarea required placeholder="Введите ваш комментарий..."></textarea>
+                    </div>
+                <button type="submit" class="btn">Отправить</button>
+                </form>
+            </div>
+        </div>
+        <div class="map-container">
+            <iframe src="https://www.openstreetmap.org/export/embed.html?bbox=37.6173,55.7558,37.6273,55.7658&layer=mapnik"></iframe>
+        </div>
+    </div>
+    <script>
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Форма отправлена! (Демо-версия)');
+            this.reset();
+        });
+    </script>
+{% endblock content%}
+
+{% block footer %}
+{% endblock footer %}

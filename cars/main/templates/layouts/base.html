@@ -1,0 +1,94 @@
+
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Minsk cars</title>
+   
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+      rel="stylesheet"
+    />
+    {% block css %}
+      <link rel="stylesheet" href="{% static 'css/main.css' %}" />
+      <link rel="stylesheet" href="{% static 'css/profile.css' %}" />
+    {% endblock css %}
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Fjalla+One&family=Playwrite+VN:wght@100..400&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+
+  <body>
+    <div class="legend">
+      {% block header %}
+      <header>
+        <div class="container">
+          <div class="header-content">
+            <img class="header-content_logo" src="{% static 'images/logo.png' %}" />
+            <nav>
+              <a href="main.html" class="check">Главная</a>
+              <a href="about.html">О нас</a>
+              <a href="profile.html">Профиль</a>
+              <a href="form_to_find.html">Поиск автомобилей</a>
+            </nav>
+            <div class="header-content_last">
+              <a href="login.html">Авторизация</a>
+              <a href="sign_in.html">Регистрация</a>
+            </div>
+          </div>
+        </div>
+      </header>
+      {% endblock header %}
+
+      {% block content %}
+
+      {% endblock content %}
+
+
+      {% block footer %}
+      <footer class="last">
+        <div class="container">
+          <p>Our phone: +80293737373.</p>
+          <p>Our gmail: subscribe_us@gmail.com</p>
+          <div class="tegs"><h2>Look for us on social networks.</h2></div>
+          <div class="block_contact">
+            <div class="our-contacts">
+              <div class="one-item">
+                <img src="{% static 'images/intsagram.png'%}" />
+                <div class="ssil1"><a href="#" class="ss">Instagram</a></div>
+              </div>
+              <div class="one-item">
+                <img src="{% static 'images/telegram.png'%}" />
+                <div class="ssil2"><a href="#" class="ss">Telegram</a></div>
+              </div>
+              <div class="one-item">
+                <img src="{% static 'images/vk.png'%}" />
+                <div class="ssil3"><a href="#" class="ss">VK</a></div>
+              </div>
+            </div>
+            <div class="our-contacts">
+              <div class="one-item">
+                <img src="{% static 'images/viber.png'%}" />
+                <div class="ssil4"><a href="#" class="ss">Viber</a></div>
+              </div>
+              <div class="one-item">
+                <img src="{% static 'images/facebook.png'%}" />
+                <div class="ssil5"><a href="#" class="ss">facebook</a></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </footer>
+      {% endblock footer %}
+     
+    </div>
+  </body>
+</html>

@@ -1,45 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>beautiful site</title>
-    <link rel="stylesheet" href="css/main.css" />
-    <link rel="stylesheet" href="css/profile.css" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
-      rel="stylesheet"
-    />
+{% extends "layouts/base.html" %}
+{%load static%}
 
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Fjalla+One&family=Playwrite+VN:wght@100..400&display=swap"
-      rel="stylesheet"
-    />
-  </head>
-  <body>
-    <div class="legend">
-      <header>
-        <div class="container">
-          <div class="header-content">
-            <img class="header-content_logo" src="images/logo.png" />
-            <nav>
-              <a href="main.html" class="check">Главная</a>
-              <a href="about.html">О нас</a>
-              <a href="profile.html">Профиль</a>
-              <a href="form_to_find.html">Поиск автомобилей</a>
-            </nav>
-            <div class="header-content_last">
-              <a href="login.html">Авторизация</a>
-              <a href="sign_in.html">Регистрация</a>
-            </div>
-          </div>
-        </div>
-      </header>
-
+{% block content %}
       <main>
         <div class="container">
           <div class="main-content">
@@ -54,7 +16,7 @@
                 <a href="#">Категории</a>
               </div>
             </div>
-            <img class="main_picture" src="images/volvo.png" />
+            <img class="main_picture" src="{% static 'images/volvo.png' %}" />
             <div></div>
           </div>
         </div>
@@ -63,7 +25,7 @@
       <section class="welcome">
         <div class="container">
           <div class="privetstvie">
-            <img src="images/im.png" />
+            <img src="{% static 'images/im.png' %}" />
             <div>
               <h2>Mercedes <span>AMG</span></h2>
               <p>
@@ -89,7 +51,7 @@
           </div>
           <div class="menu-items">
             <div class="menu-item">
-              <img src="images/bmw1.png" />
+              <img src="{% static 'images/bmw1.png' %}" />
               <h3>BMW</h3>
 
               <p>
@@ -105,7 +67,7 @@
               </div>
             </div>
             <div class="menu-item">
-              <img src="images/audi 1.png" />
+              <img src="{% static 'images/audi 1.png' %}" />
               <h3>AUDI</h3>
 
               <p>
@@ -121,7 +83,7 @@
               </div>
             </div>
             <div class="menu-item">
-              <img src="images/porshe.png" />
+              <img src="{% static 'images/porshe.png' %}" />
               <h3>PORSHE</h3>
 
               <p>
@@ -137,7 +99,7 @@
               </div>
             </div>
             <div class="menu-item">
-              <img src="images/volvo1.png" />
+              <img src="{% static 'images/volvo1.png' %}" />
               <h3>VOLVO</h3>
 
               <p>
@@ -153,7 +115,7 @@
               </div>
             </div>
             <div class="menu-item">
-              <img src="images/gelik.png" />
+              <img src="{% static 'images/gelik.png' %}" />
               <h3>MERCEDES</h3>
 
               <p>
@@ -169,7 +131,7 @@
               </div>
             </div>
             <div class="menu-item">
-              <img src="images/geely.png" />
+              <img src="{% static 'images/geely.png' %}" />
               <h3>GEELY</h3>
 
               <p>
@@ -196,39 +158,4 @@
           </div>
         </div>
       </section>
-      <footer class="last">
-        <div class="container">
-          <p>Our phone: +80293737373.</p>
-          <p>Our gmail: subscribe_us@gmail.com</p>
-          <div class="tegs"><h2>Look for us on social networks.</h2></div>
-          <div class="block_contact">
-            <div class="our-contacts">
-              <div class="one-item">
-                <img src="images/intsagram.png" />
-                <div class="ssil1"><a href="#" class="ss">Instagram</a></div>
-              </div>
-              <div class="one-item">
-                <img src="images/telegram.png" />
-                <div class="ssil2"><a href="#" class="ss">Telegram</a></div>
-              </div>
-              <div class="one-item">
-                <img src="images/vk.png" />
-                <div class="ssil3"><a href="#" class="ss">VK</a></div>
-              </div>
-            </div>
-            <div class="our-contacts">
-              <div class="one-item">
-                <img src="images/viber.png" />
-                <div class="ssil4"><a href="#" class="ss">Viber</a></div>
-              </div>
-              <div class="one-item">
-                <img src="images/facebook.png" />
-                <div class="ssil5"><a href="#" class="ss">facebook</a></div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </footer>
-    </div>
-  </body>
-</html>
+{% endblock content %}
