@@ -2,160 +2,83 @@
 {%load static%}
 
 {% block content %}
-      <main>
-        <div class="container">
-          <div class="main-content">
-            <div>
-              <div class="main-content_about">Welcome</div>
-              <h1>BEST CARS</h1>
-              <p>
-                Make your dream yourself.All useful information you can read if
-                you scroll display
-              </p>
-              <div class="main-content_buttons">
-                <a href="#">Категории</a>
-              </div>
-            </div>
-            <img class="main_picture" src="{% static 'images/volvo.png' %}" />
-            <div></div>
-          </div>
+<main>
+  <div class="container">
+    <div class="main-content">
+      <div>
+        <div class="main-content_about">Welcome</div>
+        <h1>BEST CARS</h1>
+        <p>
+          Make your dream yourself.All useful information you can read if
+          you scroll display
+        </p>
+        <div class="main-content_buttons">
+          <a href="#">Категории</a>
         </div>
-      </main>
+      </div>
+      <img class="main_picture" src="{% static 'images/volvo.png' %}" />
+      <div></div>
+    </div>
+  </div>
+</main>
 
-      <section class="welcome">
-        <div class="container">
-          <div class="privetstvie">
-            <img src="{% static 'images/im.png' %}" />
-            <div>
-              <h2>Mercedes <span>AMG</span></h2>
-              <p>
-                Цена:100000$<br />
-                Пробег: 140000km<br />
-              </p>
-              <h2><span>2024</span></h2>
-              <a href="#">Подробная информация</a>
-            </div>
-          </div>
+<section class="welcome">
+  <div class="container">
+    <div class="privetstvie">
+      <img src="{% static 'images/im.png' %}" />
+      <div>
+        <h2>Mercedes <span>AMG</span></h2>
+        <p>
+          Цена:100000$<br />
+          Пробег: 140000km<br />
+        </p>
+        <h2><span>2024</span></h2>
+        <a href="#">Подробная информация</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="catalog">
+  <div class="container">
+    <h2>CHOOSE YOUR DREAM</h2>
+
+    <div class="buttons-categories">
+      <a class="check" href="#">Все категории</a>
+      <a href="#">Кроссоверы</a>
+      <a href="#">Минивены</a>
+      <a href="#">Купе</a>
+    </div>
+    <div class="menu-items">
+      {% for car in cars %}
+      <div class="menu-item">
+        {% if car.image %}
+        <img src="{{car.image.url}}" />
+        {% endif %}
+        <h3>{{car.brand}}</h3>
+        <p>
+          Цена: {{car.price}}$<br />
+          Год создания: {{car.year}}<br />
+          Пробег: {{car.mileage}}км<br />
+        </p>
+        <p class="description">
+          {{car.description}}
+        </p>
+        <div class="menu-item_last">
+          <a href="#">Подробная информация</a>
         </div>
-      </section>
+      </div>
+      {% endfor %}
+    </div>
+    <div class="menu-pag">
+      <a class="back" href="#"><span><</span></a>
 
-      <section class="catalog">
-        <div class="container">
-          <h2>CHOOSE YOUR DREAM</h2>
+      <a class="page" href="#"><span>1</span></a>
+      <a class="page" href="#"><span>2</span></a>
 
-          <div class="buttons-categories">
-            <a class="check" href="#">All categories</a>
-            <a href="#">Crossovers</a>
-            <a href="#">Sport</a>
-            <a href="#">Casual</a>
-          </div>
-          <div class="menu-items">
-            <div class="menu-item">
-              <img src="{% static 'images/bmw1.png' %}" />
-              <h3>BMW</h3>
-
-              <p>
-                Цена: 30000$<br />
-                Год создания: 2023<br />
-                Пробег: 140000км<br />
-              </p>
-              <p class="description">
-                Машина была произведена в Германии в 2023 году, пробег 140000км.
-              </p>
-              <div class="menu-item_last">
-                <a href="#">Подробная информация</a>
-              </div>
-            </div>
-            <div class="menu-item">
-              <img src="{% static 'images/audi 1.png' %}" />
-              <h3>AUDI</h3>
-
-              <p>
-                Цена: 30000$<br />
-                Год создания: 2023<br />
-                Пробег: 140000км<br />
-              </p>
-              <p class="description">
-                Машина была произведена в Германии в 2023 году, пробег 140000км.
-              </p>
-              <div class="menu-item_last">
-                <a href="#">Подробная информация</a>
-              </div>
-            </div>
-            <div class="menu-item">
-              <img src="{% static 'images/porshe.png' %}" />
-              <h3>PORSHE</h3>
-
-              <p>
-                Цена: 30000$<br />
-                Год создания: 2023<br />
-                Пробег: 140000км<br />
-              </p>
-              <p class="description">
-                Машина была произведена в Германии в 2023 году, пробег 140000км.
-              </p>
-              <div class="menu-item_last">
-                <a href="#">Подробная информация</a>
-              </div>
-            </div>
-            <div class="menu-item">
-              <img src="{% static 'images/volvo1.png' %}" />
-              <h3>VOLVO</h3>
-
-              <p>
-                Цена: 30000$<br />
-                Год создания: 2023<br />
-                Пробег: 140000км<br />
-              </p>
-              <p class="description">
-                Машина была произведена в Германии в 2023 году, пробег 140000км.
-              </p>
-              <div class="menu-item_last">
-                <a href="#">Подробная информация</a>
-              </div>
-            </div>
-            <div class="menu-item">
-              <img src="{% static 'images/gelik.png' %}" />
-              <h3>MERCEDES</h3>
-
-              <p>
-                Цена: 30000$<br />
-                Год создания: 2023<br />
-                Пробег: 140000км<br />
-              </p>
-              <p class="description">
-                Машина была произведена в Германии в 2023 году, пробег 140000км.
-              </p>
-              <div class="menu-item_last">
-                <a href="#">Подробная информация</a>
-              </div>
-            </div>
-            <div class="menu-item">
-              <img src="{% static 'images/geely.png' %}" />
-              <h3>GEELY</h3>
-
-              <p>
-                Цена: 30000$<br />
-                Год создания: 2023<br />
-                Пробег: 140000км<br />
-              </p>
-              <p class="description">
-                Машина была произведена в Германии в 2023 году, пробег 140000км.
-              </p>
-              <div class="menu-item_last">
-                <a href="#">Подробная информация</a>
-              </div>
-            </div>
-          </div>
-          <div class="menu-pag">
-            <a class="back" href="#"><span><</span></a>
-
-            <a class="page" href="#"><span>1</span></a>
-            <a class="page" href="#"><span>2</span></a>
-
-            <a class="dot" href="#"><span>...</span></a>
-            <a class="next" href="#"><span>></span></a>
-          </div>
-        </div>
-      </section>
+      <a class="dot" href="#"><span>...</span></a>
+      <a class="next" href="#"><span>></span></a>
+    </div>
+  </div>
+</section>
 {% endblock content %}
