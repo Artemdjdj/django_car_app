@@ -52,8 +52,8 @@
     <div class="menu-items">
       {% for car in cars %}
       <div class="menu-item">
-        {% if car.image %}
-        <img src="{{car.image.url}}" />
+        {%if car.get_main_picture %}
+        <img src="{{car.get_main_picture.url}}"/>
         {% endif %}
         <h3>{{car.brand}}</h3>
         <p>
@@ -62,7 +62,7 @@
           Пробег: {{car.mileage}}км<br />
         </p>
         <p class="description">
-          {{car.description}}
+          {{ car.description|truncatechars:40 }}
         </p>
         <div class="menu-item_last">
           <a href="#">Подробная информация</a>

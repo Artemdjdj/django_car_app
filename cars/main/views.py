@@ -1,9 +1,9 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from car.models import Car
+from car.models import FuelCar
 
 def index(request):
-    cars = Car.objects.all()
+    cars = FuelCar.objects.all()
     context ={
         'cars':cars,
     }
