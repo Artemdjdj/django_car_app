@@ -44,19 +44,22 @@
                         <div class="carousel-inner">
                             <div class="carousel-item active"
                                 data-interval="2000">
-                                {% if car.get_main_picture %}
-                                <img src="{{car.get_main_picture.url}}"
+                                {% if car.get_first_picture_which_not_main %}
+                                <img
+                                    src="{{car.get_first_picture_which_not_main.url}}"
                                     class="d-block w-100"
                                     alt="...">
                                 {% endif %}
                             </div>
 
                             {% for image in car.images.all%}
+                            {% if image.image.url != car.get_main_picture.url %}
                             <div class="carousel-item" data-interval="2000">
                                 <img src="{{image.image.url}}"
                                     class="d-block w-100"
                                     alt="...">
                             </div>
+                            {%endif%}
                             {%endfor%}
                         </div>
                         <a class="carousel-control-prev"
@@ -75,14 +78,14 @@
                         </a>
                     </div>
 
-                    <!-- <div class="thumbnails">
-                        <img src="images/1.jpg" class="thumbnail">
-                        <img src="images/2.jpg" class="thumbnail">
-                        <img src="images/3.jpg" class="thumbnail">
-                        <img src="images/7.jpg" class="thumbnail">
-                        <img src="images/5.jpg" class="thumbnail">
+                    <div class="thumbnails">
+                        {% for image in car.images.all%}
+                        {% if image.image.url != car.get_main_picture.url %}
+                        <img src="{{image.image.url}}" class="thumbnail">
+                        {%endif%}
+                        {%endfor%}
 
-                    </div> -->
+                    </div>
                 </div>
 
                 <div class="opisanie">
@@ -90,11 +93,11 @@
                         <h1>{{car.brand.name}}</h1>
                         <h3> {{car.price }}by</h3>
                         <p>{{car.price}} $</p>
-                        <p>{{car.date_produced}}, коробка передач -
+                        <p>{{car.year_produced}}, коробка передач -
                             {{car.transmission}},
                             {{car.engine_displacement}},
                             {{car.fuel_type}}, {{car.mileage}} км<br>
-                            {{car.description}}</p>
+                            {{car.description|truncatechars:40 }}</p>
                         <p>Минск</p>
                         <div class="ssilka">
                             <p>+37529142333</p>
@@ -111,20 +114,7 @@
 
             <div class="some-base">
                 <h1>Дополнительная информация о машине</h1>
-                <p>Good condition of the car.
-                    <br>
-                    The machine is in full working order.
-                    <br>
-                    Everything is technically correct, the hatch is working
-                    <br>
-                    Please do not disturb outbid dealers or car dealerships,
-                    <br>
-                    not interested in exchange, inspection passed, registration
-                    is on me
-                    <br>
-                    Worth winter tires
-                    <br>
-                    Negotiable</p>
+                {{car.description}}
             </div>
         </div>
     </body>

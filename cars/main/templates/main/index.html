@@ -44,16 +44,26 @@
     <h2>CHOOSE YOUR DREAM</h2>
 
     <div class="buttons-categories">
-      <a class="check" href="#">Все категории</a>
+      {% for category in categories %}
+      {% if category.name == "Все категории"%}
+      <a class="check"
+        href="{% url 'car:catalog' category.slug %}">{{category.name}}</a>
+      {% else %}
+      <a href="{% url 'car:catalog' category.slug %}">{{category.name}}</a>
+      {% endif %}
+
+      {% endfor %}
+      <!-- <a class="check" href="#">Все категории</a>
       <a href="#">Кроссоверы</a>
       <a href="#">Минивены</a>
-      <a href="#">Купе</a>
+      <a href="#">Купе</a> -->
     </div>
     <div class="menu-items">
       {% for car in cars %}
       <div class="menu-item">
         {%if car.get_main_picture %}
-        <img src="{{car.get_main_picture.url}}"/>
+        <img src="{{car.get_main_picture.url}}" height="225px" ;
+          width="255px" />
         {% endif %}
         <h3>{{car.brand}}</h3>
         <p>
@@ -65,7 +75,7 @@
           {{ car.description|truncatechars:40 }}
         </p>
         <div class="menu-item_last">
-          <a href="#">Подробная информация</a>
+          <a href="{% url 'car:car_info' car.slug %}">Подробная информация</a>
         </div>
       </div>
       {% endfor %}

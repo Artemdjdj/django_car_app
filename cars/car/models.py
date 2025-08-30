@@ -47,7 +47,7 @@ class Car(models.Model):
         
     def dollar_to_by(self):
         return self.price * 2.984
-        
+    
 
 
 
@@ -91,6 +91,8 @@ class FuelCar(Car):
 
     def get_main_picture(self):
         return self.images.filter(is_main=True).first().image
+    def get_first_picture_which_not_main(self):
+        return self.images.filter(is_main=False).first().image
 
 
 
