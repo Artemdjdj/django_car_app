@@ -1,5 +1,7 @@
 
 {% load static %}
+{% load name_of_url %}
+{% get_url as category %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -39,7 +41,9 @@
                 class="check">Главная</a>
               <a href="{% url 'main:about' %}">О нас</a>
               <a href="profile.html">Профиль</a>
-              <a href="form_to_find.html">Поиск автомобилей</a>
+
+              <a href="{% url 'car:catalog' category %}">Поиск
+                автомобилей</a>
             </nav>
             <div class="header-content_last">
               <a href="login.html">Sign in</a>

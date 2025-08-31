@@ -1,0 +1,245 @@
+{% extends 'layouts/base.html'%}
+{%load static %}
+{% load name_of_url %}
+
+{% block css%}
+<link rel="stylesheet" href="{% static 'css/find_car.css'%}" />
+<link rel="stylesheet" href="{% static 'css/main.css' %}" />
+<link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+    integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM"
+    crossorigin="anonymous" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link
+    href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+    rel="stylesheet">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link
+    href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Fjalla+One&family=Playwrite+VN:wght@100..400&display=swap"
+    rel="stylesheet">
+<link rel="stylesheet" href="css/find_car.css" />
+<link rel="stylesheet" href="css/main.css">
+<script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+{%endblock%}
+
+{%block content%}
+<div class="row">
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-9 bg-white p-4 mb-5 mx-2 rounded custom-shadow">
+                <h2 class="text-center mb-4">Поиск автомобиля</h2>
+                <form>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="id_first_name"
+                                class="form-label">Марку</label>
+                            <select class="form-select"
+                                aria-label="Default select example">
+                                <option selected>Выберите марку</option>
+                                <option value="1">One</option>
+                                <option value="2">Two</option>
+                                <option value="3">Three</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="id_first_name"
+                                class="form-label">Модель</label>
+                            <select class="form-select"
+                                aria-label="Default select example">
+                                <option selected>Выберите модель</option>
+                                <option value="1">One</option>
+                                <option value="2">Two</option>
+                                <option value="3">Three</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="id_first_name"
+                                class="form-label">Максимальный пробег</label>
+                            <input
+                                type="text"
+                                class="form-control"
+                                id="id_first_name"
+                                placeholder="Введите максимальный пробег"
+                                name="first_name" />
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="id_first_name" class="form-label">Объем
+                                двигателя</label>
+                            <input
+                                type="text"
+                                class="form-control"
+                                id="id_first_name"
+                                placeholder="Введите объем двигателя"
+                                name="first_name" />
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="id_first_name" class="form-label">Год
+                                выпуска</label>
+                            <input
+                                type="text"
+                                class="form-control"
+                                id="id_first_name"
+                                placeholder="Введите год выпуска автомобиля"
+                                name="first_name" />
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="id_first_name" class="form-label">Тип
+                                топлива</label>
+                            <input
+                                type="text"
+                                class="form-control"
+                                id="id_first_name"
+                                placeholder="Введите тип топлива"
+                                name="first_name" />
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="id_first_name"
+                                class="form-label">Минимальная Цена</label>
+                            <input
+                                type="text"
+                                class="form-control"
+                                id="id_first_name"
+                                placeholder="Введите минимальную цену"
+                                name="first_name" />
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="id_first_name"
+                                class="form-label">Максимальная цена</label>
+                            <input
+                                type="text"
+                                class="form-control"
+                                id="id_first_name"
+                                placeholder="Введите максимальную цену"
+                                name="first_name" />
+                        </div>
+
+                    </div>
+
+                    <button type="submit" class="btn btn-dark btn-block">
+                        Найти
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<section class="catalog">
+    <div class="container">
+        <div class="form_block">
+            <div class="dropdown mb-2">
+                <button class="button_style" type="button"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false">
+                    Фильтрация автомобилей по параметрам
+                </button>
+
+                <form action="{% url 'car:catalog' category_slug%}" method="get"
+                    class="dropdown-menu bg-dark">
+                    <p class="text-white mx-3 mt-3">Сортировать:</p>
+                    <div class="form-check text-white mx-3">
+                        <input class="form-check-input" type="radio"
+                            name="order_by"
+                            id="flexRadioDefault1" value=default {% if not request.GET.order_by or request.GET.order_by == 'default' %} checked {% endif %}>
+                        <label class="form-check-label" for="flexRadioDefault1">
+                            По умолчанию
+                        </label>
+                    </div>
+                    <div class="form-check text-white mx-3">
+                        <input class="form-check-input" type="radio"
+                            name="order_by"
+                            id="flexRadioDefault2" value="price" {% if request.GET.order_by == 'price' %} checked {% endif %}>
+                        <label class="form-check-label" for="flexRadioDefault2" >
+                            От дешевых к дорогим
+                        </label>
+                    </div>
+                    <div class="form-check text-white mx-3">
+                        <input class="form-check-input" type="radio"
+                            name="order_by"
+                            id="flexRadioDefault3" value="-price" {% if request.GET.order_by == '-price' %} checked {% endif %}>
+                        <label class="form-check-label" for="flexRadioDefault3">
+                            От дорогих к дешевым
+                        </label>
+                    </div>
+                    <div class="but_submit">
+                        <button type="submit"
+                            class="btn btn-success">Применить</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <h2>CHOOSE YOUR DREAM</h2>
+
+        <div class="buttons-categories">
+            {% for category in categories %}
+            {% if category.name == "Все категории"%}
+            <a class="check"
+                href="{% url 'car:catalog' category.slug %}">{{category.name}}</a>
+            {% else %}
+            <a
+                href="{% url 'car:catalog' category.slug %}">{{category.name}}</a>
+            {% endif %}
+
+            {% endfor %}
+            <!-- <a class="check" href="#">Все категории</a>
+      <a href="#">Кроссоверы</a>
+      <a href="#">Минивены</a>
+      <a href="#">Купе</a> -->
+        </div>
+        <div class="menu-items">
+            {% for car in page_obj %}
+            <div class="menu-item">
+                {%if car.get_main_picture %}
+                <img src="{{car.get_main_picture.url}}" height="225px" ;
+                    width="255px" />
+                {% endif %}
+                <h3>{{car.brand}}</h3>
+                <p>
+                    Цена: {{car.price}}$<br />
+                    Год создания: {{car.year}}<br />
+                    Пробег: {{car.mileage}}км<br />
+                </p>
+                <p class="description">
+                    {{ car.description|truncatechars:40 }}
+                </p>
+                <div class="menu-item_last">
+                    <a href="{% url 'car:car_info' car.slug %}">Подробная
+                        информация</a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {%if page_obj.has_other_pages %}
+        <div class="menu-pag">
+            {% if page_obj.has_previous %}
+            <a class="back"
+                href="!{% change_params page=page_obj.previous_page_number%}"><span>
+                    <</span></a>
+            {% endif %}
+            {% for p in page_obj.paginator.page_range %}
+            {% if p == page_obj.number %}
+            <a class="page-clicked" href="#">
+                <span>{{p}}</span></a>
+            {% elif p > page_obj.number|add:-2 and p < page_obj.number|add:2 %}
+            <a
+                class="page" href="?{% change_params page=p%}">
+                <span>{{p}}</span></a>
+            {% endif %}
+            {% endfor %}
+
+            {% if page_obj.has_next %}
+            <a class="dot" href="#"><span>...</span></a>
+            <a class="next"
+                href="?{% change_params page=page_obj.next_page_number%}"><span>></span></a>
+            {% endif %}
+
+        </div>
+        {% endif%}
+    </div>
+</section>
+{%endblock%}
