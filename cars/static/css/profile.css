@@ -1,0 +1,16 @@
+.main_block{
+    margin-top:50px;
+    display:block;
+    
+}
+
+.main_block h1{
+    font-family: "Poppins", serif;
+    text-align:center;
+    font-weight:500;
+    color:azure;
+}
+
+.menu-items{
+    margin-top: 50px;
+}

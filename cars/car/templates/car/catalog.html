@@ -1,0 +1,410 @@
+{% extends 'layouts/base.html'%}
+{%load static %}
+{% load name_of_url %}
+
+{% block css%}
+<link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+    integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM"
+    crossorigin="anonymous" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link
+    href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+    rel="stylesheet">
+<link
+    href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Fjalla+One&family=Playwrite+VN:wght@100..400&display=swap"
+    rel="stylesheet">
+<link rel="stylesheet" href="{% static 'css/find_car.css' %}">
+<link rel="stylesheet" href="{% static 'css/main.css' %}" >
+<script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+{%endblock%}
+
+{%block content%}
+<div class="row">
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+           <div class="col-md-9 bg-dark text-light p-4 mb-5 mx-2 rounded custom-shadow">
+                <h2 class="text-center mb-4">Поиск автомобиля</h2>
+                <div class="form_of_type_of_car">
+                    <div class="main_in_form">
+                        <form action="{% url 'car:catalog' category_slug %}" method="get" id="form_selector_form">
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <label for="form_selector" class="form-label">Выберите тип автомобиля</label>
+                                    <select class="form-select" id="form_selector" name="search_type" onchange="this.form.submit()">
+                                        <option value="fuel_car" {% if not request.GET.search_type or request.GET.search_type == 'fuel_car' %}selected{% endif %}>Автомобиль на топливе</option>
+                                        <option value="electro_car" {% if request.GET.search_type == 'electro_car' %}selected{% endif %}>Электромобиль</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                {% if not request.GET.search_type or request.GET.search_type == 'fuel_car' %}
+                    <form action="{% url 'car:catalog' category_slug %}" method="get">
+                        <input type="hidden" name="search_type" value="fuel_car">
+                        
+                        {% for key, value in request.GET.items %}
+                            {% if key != 'search_type' %}
+                                <input type="hidden" name="{{ key }}" value="{{ value }}">
+                            {% endif %}
+                        {% endfor %}
+                        
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="id_brand" class="form-label">Марку</label>
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    id="id_brand"
+                                    name="brand" 
+                                    value="{% if request.GET.brand %}{{ request.GET.brand }}{% endif %}"
+                                    placeholder="Введите марку автомобиля"
+                                />
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="id_model"
+                                    class="form-label">Модель</label>
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    id="id_model"
+                                    value="{% if request.GET.model %}{{ request.GET.model }}{% endif %}"
+                                    placeholder="Введите модель автомобиля"
+                                    name="model" />
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="id_max_mileage"
+                                    class="form-label">Максимальный пробег</label>
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    id="id_max_mileage"
+                                    value="{% if request.GET.max_mileage %}{{ request.GET.mileage }}{% endif %}"
+                                    placeholder="Введите максимальный пробег"
+                                    name="max_mileage" />
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="id_volume" class="form-label">Объем
+                                    двигателя</label>
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    id="id_volume"
+                                    placeholder="Введите объем двигателя"
+                                    name="volume" />
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="id_first_name" class="form-label">Тип
+                                    коробки передач</label>
+                                <select class="form-select"
+                                    aria-label="Default select example" name="type_of_transmission">
+                                    <option selected value="1">Механическа</option>
+                                    <option value="2">Автоматическая</option>
+                                    <option value="3">Робот</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="id_year_before" class="form-label">Год
+                                    выпуска (от)</label>
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    id="id_year_before"
+                                    value="{% if request.GET.year_before %}{{ request.GET.before }}{% endif %}"
+                                    placeholder="Введите год выпуска автомобиля (от)"
+                                    name="year_before" />
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="id_year_after" class="form-label">Год
+                                    выпуска (до)</label>
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    id="id_year_after"
+                                    value="{% if request.GET.year_after %}{{ request.GET.year_after }}{% endif %}"
+                                    placeholder="Введите год выпуска автомобиля (до)"
+                                    name="year_after" />
+                            </div>
+                            <!-- <div class="col-md-6 mb-3">
+                                <label for="id_first_name" class="form-label">Тип
+                                    топлива</label>
+                                <select class="form-select"
+                                    aria-label="Default select example" name="type_of_oil">
+                                    <option selected value="1">Бензин</option>
+                                    <option value="2">Дизель</option>
+                                    <option value="3">Газ</option>
+                                </select>
+                            </div> -->
+                            <div class="col-md-6 mb-3">
+                                <label for="id_max_price"
+                                    class="form-label">Максимальная цена</label>
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    id="id_max_price"
+                                    value="{% if request.GET.max_price %}{{ request.GET.max_price }}{% endif %}"
+                                    placeholder="Введите максимальную цену"
+                                    name="max_price" />
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-outline-success">
+                            Найти
+                        </button>
+                    </form>
+
+                {% elif request.GET.search_type == 'electro_car' %}
+                    <form action="{% url 'car:catalog' category_slug%}" method="get">
+                        <input type="hidden" name="search_type" value="fuel_car">
+    
+                        {% for key, value in request.GET.items %}
+                            {% if key != 'search_type' %}
+                                <input type="hidden" name="{{ key }}" value="{{ value }}">
+                            {% endif %}
+                        {% endfor %}
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="id_brand" class="form-label">Марку</label>
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    id="id_brand"
+                                    name="brand" 
+                                    value="{% if request.GET.brand %}{{ request.GET.brand }}{% endif %}"
+                                    placeholder="Введите марку автомобиля"
+                                />
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="id_model"
+                                    class="form-label">Модель</label>
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    id="id_model"
+                                    value="{% if request.GET.model %}{{ request.GET.model }}{% endif %}"
+                                    placeholder="Введите модель автомобиля"
+                                    name="model" />
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="id_max_mileage"
+                                    class="form-label">Максимальный пробег</label>
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    id="id_max_mileage"
+                                    value="{% if request.GET.max_mileage %}{{ request.GET.mileage }}{% endif %}"
+                                    placeholder="Введите максимальный пробег"
+                                    name="max_mileage" />
+                            </div>
+                            <!-- <div class="col-md-6 mb-3">
+                                <label for="id_volume" class="form-label">Объем
+                                    двигателя</label>
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    id="id_volume"
+                                    placeholder="Введите объем двигателя"
+                                    name="volume" />
+                            </div> -->
+                            <!-- <div class="col-md-6 mb-3">
+                                <label for="id_first_name" class="form-label">Тип
+                                    коробки передач</label>
+                                <select class="form-select"
+                                    aria-label="Default select example" name="type_of_transmission">
+                                    <option selected value="1">Механическа</option>
+                                    <option value="2">Автоматическая</option>
+                                    <option value="3">Робот</option>
+                                </select>
+                            </div>-->
+                            <div class="col-md-6 mb-3">
+                                <label for="id_year_before" class="form-label">Год
+                                    выпуска (от)</label>
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    id="id_year_before"
+                                    value="{% if request.GET.year_before %}{{ request.GET.before }}{% endif %}"
+                                    placeholder="Введите год выпуска автомобиля (от)"
+                                    name="year_before" />
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="id_year_after" class="form-label">Год
+                                    выпуска (до)</label>
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    id="id_year_after"
+                                    value="{% if request.GET.year_after %}{{ request.GET.year_after }}{% endif %}"
+                                    placeholder="Введите год выпуска автомобиля (до)"
+                                    name="year_after" />
+                            </div>
+                            <!-- <div class="col-md-6 mb-3">
+                                <label for="id_first_name" class="form-label">Тип
+                                    топлива</label>
+                                <select class="form-select"
+                                    aria-label="Default select example" name="type_of_oil">
+                                    <option selected value="1">Бензин</option>
+                                    <option value="2">Дизель</option>
+                                    <option value="3">Газ</option>
+                                </select>
+                            </div> -->
+                            <div class="col-md-6 mb-3">
+                                <label for="id_max_price"
+                                    class="form-label">Максимальная цена</label>
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    id="id_max_price"
+                                    value="{% if request.GET.max_price %}{{ request.GET.max_price }}{% endif %}"
+                                    placeholder="Введите максимальную цену"
+                                    name="max_price" />
+                            </div>
+                            <!-- <div class="col-md-6 mb-3">
+                                <label for="id_city" class="form-label">Город</label>
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    id="id_city"
+                                    value="{% if request.GET.brand %}{{ request.GET.brand }}{% endif %}"
+                                    placeholder="Введите марку автомобиля"
+                                    placeholder="Введите город"
+                                    name="city" />
+                            </div>  -->
+
+                        </div>
+
+                        <button type="submit" class="btn btn-outline-success">
+                            Найти
+                        </button>
+                    </form>
+                {%endif%}
+            </div>
+        </div>
+    </div>
+</div>
+
+<section class="catalog">
+    <div class="container">
+        <div class="form_block">
+            <div class="dropdown mb-2">
+                <button class="button_style" type="button"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false">
+                    Фильтрация автомобилей по параметрам
+                </button>
+
+                <form action="{% url 'car:catalog' category_slug%}" method="get"
+                    class="dropdown-menu bg-dark">
+                    {% for key, value in request.GET.items %}
+                        {% if key != 'order_by' %} 
+                            <input type="hidden" name="{{ key }}" value="{{ value }}">
+                        {% endif %}
+                    {% endfor %}
+                    <p class="text-white mx-3 mt-3">Сортировать:</p>
+                    <div class="form-check text-white mx-3">
+                        <input class="form-check-input" type="radio"
+                            name="order_by"
+                            id="flexRadioDefault1" value=default {% if not request.GET.order_by or request.GET.order_by == 'default' %} checked {% endif %}>
+                        <label class="form-check-label" for="flexRadioDefault1">
+                            По умолчанию
+                        </label>
+                    </div>
+                    <div class="form-check text-white mx-3">
+                        <input class="form-check-input" type="radio"
+                            name="order_by"
+                            id="flexRadioDefault2" value="price" {% if request.GET.order_by == 'price' %} checked {% endif %}>
+                        <label class="form-check-label" for="flexRadioDefault2" >
+                            От дешевых к дорогим
+                        </label>
+                    </div>
+                    <div class="form-check text-white mx-3">
+                        <input class="form-check-input" type="radio"
+                            name="order_by"
+                            id="flexRadioDefault3" value="-price" {% if request.GET.order_by == '-price' %} checked {% endif %}>
+                        <label class="form-check-label" for="flexRadioDefault3">
+                            От дорогих к дешевым
+                        </label>
+                    </div>
+
+                    <div class="but_filter_block">
+                        <div class="but_submit">
+                            <button type="submit" class="btn btn-outline-success">Применить</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <h2>CHOOSE YOUR DREAM</h2>
+
+        <!-- <div class="buttons-categories">
+            {% for category in categories %}
+            {% if category.name == "Все категории"%}
+            <a class="check"
+                href="{% url 'car:catalog' category.slug %}">{{category.name}}</a>
+            {% else %}
+            <a
+                href="{% url 'car:catalog' category.slug %}">{{category.name}}</a>
+            {% endif %}
+
+            {% endfor %} -->
+            <!-- <a class="check" href="#">Все категории</a>
+            <a href="#">Кроссоверы</a>
+            <a href="#">Минивены</a>
+            <a href="#">Купе</a> -->
+        <!-- </div> -->
+        <div class="menu-items">
+            {% for car in page_obj %}
+            <div class="menu-item">
+                {%if car.get_main_picture %}
+                <img src="{{car.get_main_picture.url}}" height="225px" ;
+                    width="255px" />
+                {% endif %}
+                <h3>{{car.brand}}</h3>
+                <p>
+                    Цена: {{car.price}}$<br />
+                    Год создания: {{car.year}}<br />
+                    Пробег: {{car.mileage}}км<br />
+                </p>
+                <p class="description">
+                    {{ car.description|truncatechars:40 }}
+                </p>
+                <div class="menu-item_last">
+                    <a href="{% url 'car:car_info' car.slug %}">Подробная
+                        информация</a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {%if page_obj.has_other_pages %}
+        <div class="menu-pag">
+            {% if page_obj.has_previous %}
+            <a class="back"
+                href="?{% change_params page=page_obj.previous_page_number%}"><span>
+                    <</span></a>
+            {% endif %}
+            {% for p in page_obj.paginator.page_range %}
+            {% if p == page_obj.number %}
+            <a class="page-clicked" href="#">
+                <span>{{p}}</span></a>
+            {% elif p > page_obj.number|add:-2 and p < page_obj.number|add:2 %}
+            <a
+                class="page" href="?{% change_params page=p%}">
+                <span>{{p}}</span></a>
+            {% endif %}
+            {% endfor %}
+
+            {% if page_obj.has_next %}
+            <a class="dot" href="#"><span>...</span></a>
+            <a class="next"
+                href="?{% change_params page=page_obj.next_page_number%}"><span>></span></a>
+            {% endif %}
+
+        </div>
+        {% endif%}
+    </div>
+</section>
+{%endblock%}

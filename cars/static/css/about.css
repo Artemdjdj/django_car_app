@@ -1,0 +1,274 @@
+body {
+    background-color: rgb(24, 22, 22);
+    height: 100%;
+    scroll-behavior: smooth;
+    font-size:24px;
+}
+
+
+.wrapper {
+    padding-top: 20px;
+    margin: 20px 80px;
+}
+
+.header {
+    padding-top: 20px;
+    text-align: center;
+    color: azure;
+    line-height: 200%;
+    margin-bottom:50px;
+}
+
+.header h1 {
+    font-weight: 700;
+    font-size: 70px;
+}
+
+/* .header p {
+    font-weight: 200;
+    font-size: 25px;
+} */
+
+.inform {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top:50px;
+}
+
+.information {
+    background-color: rgb(69, 103, 35);
+    border-radius: 60px;
+    width: 35%;
+}
+
+.info-card h1 {
+    color: aliceblue;
+    font-weight: 700;
+    font-size: 30px;
+    line-height: 100%;
+}
+
+.info-card p {
+    color: azure;
+    font-weight: 200;
+    font-size: 18px;
+}
+
+.info-card {
+    margin: 30px 40px;
+}
+
+.map-container {
+    height: 400px;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-top: 3rem;
+}
+
+.map-container iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+.forming {
+    background-color: rgb(69, 103, 35);
+    border-radius: 60px;
+    width: 40%;
+}
+
+.forming h1 {
+    font-size: 35px;
+    font-weight: 600;
+    text-align: center;
+    color:azure;
+}
+
+.input-box {
+    width: 80%;
+    height: 50px;
+    margin: 30px 30px;
+    position: relative;
+}
+
+.input-box input {
+    width: 90%;
+    height: 10%;
+    background: transparent;
+    border: none;
+    outline: none;
+    border: 2px solid rgb(255, 255, 255);
+    border-radius: 40px;
+    padding: 20px;
+}
+
+.input-box input::placeholder {
+    color: aliceblue;
+}
+
+.input-box i {
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 25px;
+}
+
+.forming .btn {
+    width: 85%;
+    height: 50px;
+    border: none;
+    outline: none;
+    background-color: rgb(92, 160, 23);
+    border-radius: 40px;
+    cursor: pointer;
+    color:azure;
+    font-size: 17px;
+    margin: 30px;
+    font-weight: 600;
+}
+
+.input-box_big {
+    width: 100%;
+    max-width: 800px;
+    margin: 20px auto;
+}
+
+.input-box_big textarea {
+    width: 80%;
+    min-height: 150px;
+    padding: 15px;
+    font-size: 16px;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    resize: vertical;
+    margin: 30px;
+}
+
+
+@media (max-width: 1400px) {
+    .wrapper {
+        margin: 20px 40px;
+    }
+    
+    .header h1 {
+        font-size: 60px;
+    }
+    
+    .header p {
+        font-size: 22px;
+    }
+}
+
+@media (max-width: 1200px) {
+    .header h1 {
+        font-size: 50px;
+    }
+    
+    .header p {
+        font-size: 20px;
+    }
+    
+    .information, .forming {
+        width: 45%;
+    }
+    
+    .info-card {
+        margin: 25px 30px;
+    }
+    
+    .info-card h1 {
+        font-size: 26px;
+    }
+    
+    .info-card p {
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 992px) {
+    .wrapper {
+        margin: 20px 30px;
+    }
+    
+    .inform {
+        flex-direction: column;
+        gap: 30px;
+    }
+    
+    .information, .forming {
+        width: 100%;
+        max-width: 600px;
+    }
+    
+    .map-container {
+        height: 350px;
+    }
+}
+
+@media (max-width: 768px) {
+    .wrapper {
+        margin: 20px 20px;
+    }
+    
+    .header h1 {
+        font-size: 40px;
+    }
+    
+    .header p {
+        font-size: 18px;
+    }
+    
+    .info-card h1 {
+        font-size: 24px;
+    }
+    
+    .forming h1 {
+        font-size: 30px;
+    }
+    
+    .input-box, .input-box_big textarea {
+        width: 90%;
+        margin: 20px 15px;
+    }
+    
+    .forming .btn {
+        width: 90%;
+        margin: 20px 15px;
+    }
+}
+
+@media (max-width: 576px) {
+    .header h1 {
+        font-size: 32px;
+    }
+    
+    .header p {
+        font-size: 16px;
+    }
+    
+    .info-card {
+        margin: 20px 25px;
+    }
+    
+    .info-card h1 {
+        font-size: 22px;
+    }
+    
+    .info-card p {
+        font-size: 14px;
+    }
+    
+    .forming h1 {
+        font-size: 26px;
+    }
+    
+    .input-box input {
+        padding: 15px;
+    }
+    
+    .map-container {
+        height: 300px;
+    }
+}
