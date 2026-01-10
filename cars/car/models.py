@@ -11,6 +11,7 @@ class CarBrand(models.Model):
         db_table = "CarBrand"
         verbose_name_plural = "Бренды"
         verbose_name = "Бренд"
+        
     def __str__(self):
         return self.name
     
@@ -47,6 +48,12 @@ class Car(models.Model):
         
     def dollar_to_by(self):
         return self.price * 2.984
+
+    def get_main_picture(self):
+        return self.images.filter(is_main=True).first().image
+    
+    def get_first_picture_which_not_main(self):
+        return self.images.filter(is_main=False).first().image
     
 
 
@@ -89,10 +96,6 @@ class FuelCar(Car):
     def __str__(self):
         return f"{self.brand} {self.model} ({self.year_produced}) - {self.get_fuel_type_display()}"
 
-    def get_main_picture(self):
-        return self.images.filter(is_main=True).first().image
-    def get_first_picture_which_not_main(self):
-        return self.images.filter(is_main=False).first().image
 
 
 

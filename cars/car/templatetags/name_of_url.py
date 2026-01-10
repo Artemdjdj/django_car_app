@@ -18,3 +18,5 @@ def change_params(context, **kwargs):
     query.update(kwargs)
     return urlencode(query)
 # urlencode из словаря делает адрес
+
+

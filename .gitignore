@@ -1,0 +1,9 @@
+.vscode/
+carvenv
+cars/main/migrations
+cars/car/migrations
+cars/main/__pycache__
+cars/car/__pycache__
+cars/cars/__pycache__
+cars/media/
+cars/db.sqlite3

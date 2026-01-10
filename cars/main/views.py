@@ -15,4 +15,4 @@ def index(request):
 
 def about(request):
     return render(request, 'main/about.html')
-# Create your views here.
+

@@ -1,27 +1,39 @@
-
-
 body {
     background-color: rgba(0, 0, 0, 0.74);
-    
+}
 
 
-.form_block{
-    display:flex;
+.form_block {
+    display: flex;
     justify-content: center;
-    margin-bottom:100px;
-    margin-top:0px;
+    margin-bottom: 100px;
+    margin-top: 0px;
 }
 
 .button_style {
-    padding:12px 15px;
-    font-size:18px;
+    padding: 12px 15px;
+    font-size: 18px;
     background-color: rgba(8, 10, 8, 0.747);
-    color:azure;
+    color: azure;
     border-radius: 7px;
-    border:none;
+    border: none;
 }
 
-.but_submit{
-    display:flex;
+.but_submit {
+    display: flex;
     justify-content: center;
+}
+
+.but_filter_block {
+    margin-top: 20px;
+}
+
+.form_of_type_of_car{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.main_in_form{
+    width:100%;
 }
