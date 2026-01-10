@@ -1,5 +1,5 @@
 .vscode/
-carvenv
+carvenv/
 cars/main/migrations
 cars/car/migrations
 cars/main/__pycache__
