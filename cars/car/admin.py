@@ -27,7 +27,7 @@ class ElectricCarInline(CarImageInlineBase):
     
 @admin.register(FuelCarImage)
 class FuelCarImageAdmin(admin.ModelAdmin):
-    list_display = ['car__brand','is_main']
+    list_display = ['id','car__brand', 'car__id','car__model','is_main']
     list_filter = ['car__brand','is_main']
     
 @admin.register(ElectricCarImage)

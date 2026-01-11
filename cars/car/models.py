@@ -50,11 +50,16 @@ class Car(models.Model):
         return self.price * 2.984
 
     def get_main_picture(self):
-        return self.images.filter(is_main=True).first().image
+        main_image = self.images.filter(is_main=True).first()
+        if main_image:
+            return main_image.image
+        return None
     
     def get_first_picture_which_not_main(self):
-        return self.images.filter(is_main=False).first().image
-    
+        non_main_image = self.images.filter(is_main=False).first()
+        if non_main_image:
+            return non_main_image.image
+        return None
 
 
 
