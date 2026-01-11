@@ -40,14 +40,14 @@
               <a href="{% url 'main:index' %}"
                 class="check">Главная</a>
               <a href="{% url 'main:about' %}">О нас</a>
-              <a href="profile.html">Профиль</a>
+              <a href="{% url 'user:profile' %}">Профиль</a>
 
               <a href="{% url 'car:catalog' category %}">Поиск
                 автомобилей</a>
             </nav>
             <div class="header-content_last">
-              <a href="login.html">Sign in</a>
-              <a href="sign_in.html">Login</a>
+              <a href="{% url 'user:login' %}">Login</a>
+              <a href="{% url 'user:registration' %}">SignIn</a>
             </div>
           </div>
         </div>

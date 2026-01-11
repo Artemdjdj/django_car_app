@@ -38,7 +38,7 @@ body {
 .input-box input{
     width:100%;
     height:100%;
-    background:transparent;
+    /* background:transparent; */
     border:none;
     outline:none;
     border:2px solid rgb(255, 255, 255);
@@ -47,9 +47,9 @@ body {
 }
 
 
-.input-box input::placeholder{
+/* .input-box input::placeholder{
     color:aliceblue;
-}
+} */
 
 .input-box i{
     position:absolute;
@@ -67,10 +67,10 @@ body {
 
 }
 
-.remember label input{
+/* .remember label input{
     accent-color:#fff;
     margin-right:5px;
-}
+} */
 
 .remember a{
     color:aliceblue;

@@ -1,0 +1,67 @@
+{% extends 'layouts/base.html'%}
+{% load static %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'css/profile.css'%}">
+    <link rel="stylesheet" href="{% static 'css/main.css'%}">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+{% endblock css %}
+
+
+{% block content %}
+    <div class="main_block">
+    <div>
+        <h1>Мои объявления</h1>
+    </div>
+    <div class="menu-items">
+        <div class="menu-item">
+            <img src="{% static 'images/bmw1.png'%}">
+            <h3>BMW</h3>
+            <p>
+                Цена: 30000$<br>
+                Год создания: 2023<br>
+                Пробег: 140000км<br>
+            </p>
+            <p class ="description">
+                    Машина была произведена в Германии в 2023 году, пробег 140000км.
+                </p>
+            <div class="menu-item_last">
+                <a href="#">Изменить информацию</a>
+            </div>
+
+        </div>
+        <div class="menu-item">
+            <img src="{% static 'images/porshe.png' %}">
+            <h3>Porshe</h3>
+            <p>
+                Цена: 30000$<br>
+                Год создания: 2023<br>
+                Пробег: 140000км<br>
+            </p>
+            <p class ="description">
+                    Машина была произведена в Германии в 2023 году, пробег 140000км.
+                </p>
+            <div class="menu-item_last">
+                <a href="#">Изменить информацию</a>
+            </div>
+        </div>
+        <div class="menu-item">
+            <img src="{% static 'images/gelik.png' %}">
+            <h3>Mercedes</h3>
+            <p>
+                Цена: 30000$<br>
+                Год создания: 2023<br>
+                Пробег: 140000км<br>
+            </p>
+            <p class ="description">
+                    Машина была произведена в Германии в 2023 году, пробег 140000км.
+                </p>
+            <div class="menu-item_last">
+                <a href="#">Изменить информацию</a>
+            </div>
+        </div>
+    </div>
+{% endblock content %}
+
+{% block footer %}
+{% endblock footer %}
