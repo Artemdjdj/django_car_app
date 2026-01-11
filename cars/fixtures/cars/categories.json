@@ -1,0 +1,1 @@
+[{"model": "car.carcategory", "pk": 1, "fields": {"name": "Минивэн", "slug": "miniven"}}, {"model": "car.carcategory", "pk": 2, "fields": {"name": "Купе", "slug": "kupe"}}, {"model": "car.carcategory", "pk": 3, "fields": {"name": "Кроссовер", "slug": "krossover"}}, {"model": "car.carcategory", "pk": 4, "fields": {"name": "Все категории", "slug": "vse-kategorii"}}]

@@ -13,17 +13,16 @@ def catalog(request, category_slug):
     
     cars = None
     
-    if search_type == "fuel_car":
+    if not search_type or search_type == "fuel_car":
         cars = filter_fuel_car(request)
-        
-    elif search_type == "electro_car":
+    else:
         cars = filter_electric_car(request)
+    
+        
         
     #filters
     if order_by and order_by!= "default":
         cars = cars.order_by(order_by)
-    # if not cars:
-    #     cars = get_all_cars()
     
     #pagination
     paginator = Paginator(cars,3)
