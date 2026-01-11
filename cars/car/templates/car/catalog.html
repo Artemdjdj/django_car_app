@@ -83,11 +83,11 @@
                                     type="text"
                                     class="form-control"
                                     id="id_max_mileage"
-                                    value="{% if request.GET.max_mileage %}{{ request.GET.mileage }}{% endif %}"
+                                    value="{% if request.GET.max_mileage %}{{ request.GET.max_mileage }}{% endif %}"
                                     placeholder="Введите максимальный пробег"
                                     name="max_mileage" />
                             </div>
-                            <div class="col-md-6 mb-3">
+                            <!-- <div class="col-md-6 mb-3">
                                 <label for="id_volume" class="form-label">Объем
                                     двигателя</label>
                                 <input
@@ -96,15 +96,16 @@
                                     id="id_volume"
                                     placeholder="Введите объем двигателя"
                                     name="volume" />
-                            </div>
+                            </div> -->
                             <div class="col-md-6 mb-3">
                                 <label for="id_first_name" class="form-label">Тип
                                     коробки передач</label>
                                 <select class="form-select"
                                     aria-label="Default select example" name="type_of_transmission">
-                                    <option selected value="1">Механическа</option>
-                                    <option value="2">Автоматическая</option>
-                                    <option value="3">Робот</option>
+                                    <option {% if not request.GET.type_of_transmission or request.GET.type_of_transmission == "default" %}selected{% endif %}  value="default">Любая</option>
+                                    <option {% if request.GET.type_of_transmission == "mechanical" %}selected{% endif %}  value="mechanical">Механическая</option>
+                                    <option {% if request.GET.type_of_transmission == "automatic" %}selected{% endif %}  value="automatic">Автоматическая</option>
+                                    <option {% if request.GET.type_of_transmission == "robotic" %}selected{% endif %}  value="robotic">Робот</option>
                                 </select>
                             </div>
                             <div class="col-md-6 mb-3">
@@ -129,16 +130,17 @@
                                     placeholder="Введите год выпуска автомобиля (до)"
                                     name="year_after" />
                             </div>
-                            <!-- <div class="col-md-6 mb-3">
+                            <div class="col-md-6 mb-3">
                                 <label for="id_first_name" class="form-label">Тип
                                     топлива</label>
                                 <select class="form-select"
                                     aria-label="Default select example" name="type_of_oil">
-                                    <option selected value="1">Бензин</option>
-                                    <option value="2">Дизель</option>
-                                    <option value="3">Газ</option>
+                                    <option {% if not request.GET.type_of_oil or request.GET.type_of_oil == "default" %}selected{% endif %}  value="default">Любой</option>
+                                    <option {% if request.GET.type_of_oil == "gasoline" %}selected{% endif %} value="gasoline">Бензин</option>
+                                    <option {% if request.GET.type_of_oil == "diesel" %}selected{% endif %} value="diesel">Дизель</option>
+                                    <option {% if request.GET.type_of_oil == "gas" %}selected{% endif %} value="gas">Газ</option>
                                 </select>
-                            </div> -->
+                            </div>
                             <div class="col-md-6 mb-3">
                                 <label for="id_max_price"
                                     class="form-label">Максимальная цена</label>
@@ -159,14 +161,15 @@
 
                 {% elif request.GET.search_type == 'electro_car' %}
                     <form action="{% url 'car:catalog' category_slug%}" method="get">
-                        <input type="hidden" name="search_type" value="fuel_car">
+                        <input type="hidden" name="search_type" value="electro_car">
     
                         {% for key, value in request.GET.items %}
                             {% if key != 'search_type' %}
                                 <input type="hidden" name="{{ key }}" value="{{ value }}">
                             {% endif %}
                         {% endfor %}
-                        <div class="row">
+<!-- <div class="col-md-6 mb-3">
+                                                  <div class="row">
                             <div class="col-md-6 mb-3">
                                 <label for="id_brand" class="form-label">Марку</label>
                                 <input
@@ -196,30 +199,12 @@
                                     type="text"
                                     class="form-control"
                                     id="id_max_mileage"
-                                    value="{% if request.GET.max_mileage %}{{ request.GET.mileage }}{% endif %}"
+                                    value="{% if request.GET.max_mileage %}{{ request.GET.max_mileage }}{% endif %}"
                                     placeholder="Введите максимальный пробег"
                                     name="max_mileage" />
                             </div>
-                            <!-- <div class="col-md-6 mb-3">
-                                <label for="id_volume" class="form-label">Объем
-                                    двигателя</label>
-                                <input
-                                    type="text"
-                                    class="form-control"
-                                    id="id_volume"
-                                    placeholder="Введите объем двигателя"
-                                    name="volume" />
-                            </div> -->
-                            <!-- <div class="col-md-6 mb-3">
-                                <label for="id_first_name" class="form-label">Тип
-                                    коробки передач</label>
-                                <select class="form-select"
-                                    aria-label="Default select example" name="type_of_transmission">
-                                    <option selected value="1">Механическа</option>
-                                    <option value="2">Автоматическая</option>
-                                    <option value="3">Робот</option>
-                                </select>
-                            </div>-->
+                    
+                        
                             <div class="col-md-6 mb-3">
                                 <label for="id_year_before" class="form-label">Год
                                     выпуска (от)</label>
@@ -227,7 +212,7 @@
                                     type="text"
                                     class="form-control"
                                     id="id_year_before"
-                                    value="{% if request.GET.year_before %}{{ request.GET.before }}{% endif %}"
+                                    value="{% if request.GET.year_before %}{{ request.GET.year_before }}{% endif %}"
                                     placeholder="Введите год выпуска автомобиля (от)"
                                     name="year_before" />
                             </div>
@@ -242,16 +227,7 @@
                                     placeholder="Введите год выпуска автомобиля (до)"
                                     name="year_after" />
                             </div>
-                            <!-- <div class="col-md-6 mb-3">
-                                <label for="id_first_name" class="form-label">Тип
-                                    топлива</label>
-                                <select class="form-select"
-                                    aria-label="Default select example" name="type_of_oil">
-                                    <option selected value="1">Бензин</option>
-                                    <option value="2">Дизель</option>
-                                    <option value="3">Газ</option>
-                                </select>
-                            </div> -->
+                            
                             <div class="col-md-6 mb-3">
                                 <label for="id_max_price"
                                     class="form-label">Максимальная цена</label>
@@ -263,17 +239,7 @@
                                     placeholder="Введите максимальную цену"
                                     name="max_price" />
                             </div>
-                            <!-- <div class="col-md-6 mb-3">
-                                <label for="id_city" class="form-label">Город</label>
-                                <input
-                                    type="text"
-                                    class="form-control"
-                                    id="id_city"
-                                    value="{% if request.GET.brand %}{{ request.GET.brand }}{% endif %}"
-                                    placeholder="Введите марку автомобиля"
-                                    placeholder="Введите город"
-                                    name="city" />
-                            </div>  -->
+
 
                         </div>
 
