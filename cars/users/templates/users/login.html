@@ -13,22 +13,24 @@
     <div class="wrapper">
         <form action="{% url 'user:login' %}" method="post">
             {%csrf_token%}
-            {{form}}
             
-            <!-- <h1>
+            <h1>
                 Авторизация
             </h1>
+            {% if form.non_field_errors %}
+                <p>{{form.non_field_errors }}</p>
+            {% endif %}
             <div class="input-box">
-                <input type="text" placeholder="Имя" required>
+                {{form.username}}
                 <i class='bx bxs-user'></i>
             </div>
             <div class="input-box">
-                <input type="password" placeholder="Пароль" required>
+                {{form.password}}
                 <i class='bx bxs-lock-alt' ></i>
             </div>
             <div class="remember">
                 <a href="#">Забыли пароль?</a>
-            </div> -->
+            </div>
 
         <button type="submit" class="btn">Войти</button>
         <div class="register_link">
