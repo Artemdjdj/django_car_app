@@ -11,8 +11,11 @@
 
 {% block content %}
     <div class="wrapper">
-        <form action="">
-            <h1>
+        <form action="{% url 'user:login' %}" method="post">
+            {%csrf_token%}
+            {{form}}
+            
+            <!-- <h1>
                 Авторизация
             </h1>
             <div class="input-box">
@@ -25,11 +28,11 @@
             </div>
             <div class="remember">
                 <a href="#">Забыли пароль?</a>
-            </div>
+            </div> -->
 
         <button type="submit" class="btn">Войти</button>
         <div class="register_link">
-            <p>Don't have an account?<a href="#"> Зарегистрироваться</a></p>
+            <p>Нет аккаунта?<a href="#"> Зарегистрироваться</a></p>
         </div>
         </form>
     </div>
