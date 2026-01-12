@@ -72,7 +72,7 @@
      background-color: rgba(47, 150, 78, 0.805);
      text-decoration: none;
      color: #fff;
-     padding: 15px 30px;
+     padding: 10px 40px;
      border-radius: 40px;
      margin-right: 45px;
      transition: background-color 0.4s ease;
@@ -80,6 +80,39 @@
 
  .header-content_last a:hover {
      background-color: darkgreen;
+ }
+
+.auth_user {
+     align-items: center;
+     display: flex;
+     justify-content: space-between;
+ }
+
+ .auth_user a{
+     align-items: center;
+     text-decoration: none;
+     color: #2c795e;
+     
+     transition: color 0.4s ease;
+ }
+
+ .auth_user a:hover {
+     color: rgb(180, 240, 180);
+ }
+
+ .logout {
+     margin-right: 5px;
+ }
+
+ .logout a{
+     align-items: center;
+     text-decoration: none;
+     color: #9ae5cb;
+     transition: color 0.4s ease;
+ }
+
+ .logout a:hover {
+     color: rgb(236, 92, 67);
  }
 
  .header-content_last h2 {
@@ -369,14 +402,16 @@
      left: 50%;
      transform: translate(-50%, -50%);
      transition: color 0.9s ease;
-     
+
 
  }
- .page span:hover{
-    color: darkgray;
+
+ .page span:hover {
+     color: darkgray;
  }
- .page:hover{
-    background-color:rgb(37, 94, 37);
+
+ .page:hover {
+     background-color: rgb(37, 94, 37);
  }
 
  .page-clicked {

@@ -40,15 +40,25 @@
               <a href="{% url 'main:index' %}"
                 class="check">Главная</a>
               <a href="{% url 'main:about' %}">О нас</a>
-              <a href="{% url 'user:profile' %}">Профиль</a>
-
               <a href="{% url 'car:catalog' category %}">Поиск
                 автомобилей</a>
+              {% if user.is_admin or user.is_staff %}
+                 <a href="{% url 'admin:index'%}">Админ панель</a>
+              {% endif %}
             </nav>
-            <div class="header-content_last">
-              <a href="{% url 'user:login' %}">Login</a>
-              <a href="{% url 'user:registration' %}">SignIn</a>
-            </div>
+            {% if not user.is_authenticated %}
+              <div class="header-content_last">
+                <a href="{% url 'user:login' %}">Login</a>
+                <a href="{% url 'user:registration' %}">SignIn</a>
+              </div>
+            {% else %}
+              <div class="auth_user">
+                <a href="{% url 'user:profile' %}">{{user.username}}</a>
+              </div>
+              <div class="logout">
+                <a href="{% url 'user:logout' %}">Logout</a>
+              </div>
+            {% endif %}
           </div>
         </div>
       </header>
