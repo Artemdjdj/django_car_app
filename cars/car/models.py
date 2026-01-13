@@ -6,11 +6,26 @@ class CarBrand(models.Model):
     name = models.CharField(max_length=100, unique=True, blank=True, null=True, verbose_name="Название марки")
     slug = models.SlugField(max_length=120, unique=True, blank=True, null=True, verbose_name="Доменное имя")
     image = models.ImageField(upload_to="car_brand_images", verbose_name = "Изображение", blank=True, null=True)
+    is_fuel_brand = models.BooleanField(blank=True, null=True, verbose_name="Топливная марка" )
     
     class Meta:
         db_table = "CarBrand"
         verbose_name_plural = "Бренды"
         verbose_name = "Бренд"
+        
+    def __str__(self):
+        return self.name
+    
+class CarModel(models.Model):
+    name = models.CharField(max_length=100, unique=True, blank=True, null=True, verbose_name="Название модели")
+    slug = models.SlugField(max_length=120, unique=True, blank=True, null=True, verbose_name="Доменное имя")
+    brand = brand = models.ForeignKey(to='CarBrand', blank=True, null=True, on_delete=models.CASCADE, verbose_name="Марка")
+    is_fuel_model = models.BooleanField(blank=True, null=True, verbose_name="Топливная модель" )
+    
+    class Meta:
+        db_table = "CarModel"
+        verbose_name_plural = "Модели"
+        verbose_name = "Модель"
         
     def __str__(self):
         return self.name
@@ -32,7 +47,8 @@ class CarCategory(models.Model):
 class Car(models.Model):
     brand = models.ForeignKey(to='CarBrand', blank=True, null=True, on_delete=models.CASCADE, verbose_name="Марка")
     category = models.ForeignKey(to='CarCategory',blank=True, null=True, on_delete = models.CASCADE, verbose_name="Категория")
-    model = models.CharField(max_length=100, verbose_name = "Модель")
+    # model = models.CharField(max_length=100, verbose_name = "Модель")
+    model = models.ForeignKey(to='CarModel', blank=True, null=True, on_delete=models.CASCADE, verbose_name="Модель")
     price = models.DecimalField(max_digits=15,decimal_places=3,verbose_name="Цена")
     mileage = models.DecimalField(max_digits=15,decimal_places=3, verbose_name="Пробег")
     year_produced  = models.IntegerField(verbose_name="Дата производства", null=True, blank=True)

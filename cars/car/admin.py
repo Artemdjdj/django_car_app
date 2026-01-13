@@ -1,13 +1,18 @@
 from django.contrib import admin
 
 # Register your models here.
-from .models import CarBrand, CarCategory, FuelCar, ElectricCar, FuelCarImage, ElectricCarImage
+from .models import CarBrand, CarCategory, FuelCar, ElectricCar, FuelCarImage, ElectricCarImage, CarModel
 
 # admin.site.register(CarBrand)
 
 class CarBrandAdmin(admin.ModelAdmin):
     prepopulated_fields  = {'slug':('name',)}
     list_display=['name', 'slug', 'image']
+    search_fields=['name', 'slug']
+    
+class CarModelAdmin(admin.ModelAdmin):
+    prepopulated_fields  = {'slug':('name','brand')}
+    list_display=['id','name', 'slug',]
     search_fields=['name', 'slug']
     
 class CarCategoryAdmin(admin.ModelAdmin):
@@ -49,6 +54,7 @@ class ElectricCarAdmin(admin.ModelAdmin):
 
     
 admin.site.register(CarBrand, CarBrandAdmin)
+admin.site.register(CarModel, CarModelAdmin)
 admin.site.register(CarCategory,CarCategoryAdmin)
 admin.site.register(FuelCar, FuelCarAdmin)
 admin.site.register(ElectricCar, ElectricCarAdmin)

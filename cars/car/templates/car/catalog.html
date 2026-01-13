@@ -47,110 +47,97 @@
                     <form action="{% url 'car:catalog' category_slug %}" method="get">
                         <input type="hidden" name="search_type" value="fuel_car">
                         
-                        {% for key, value in request.GET.items %}
-                            {% if key != 'search_type' %}
-                                <input type="hidden" name="{{ key }}" value="{{ value }}">
-                            {% endif %}
-                        {% endfor %}
+                        <!-- {% if request.GET.max_mileage %}
+                            <input type="hidden" name="max_mileage" value="{{ request.GET.max_mileage }}">
+                        {% endif %}
+                        {% if request.GET.type_of_transmission and request.GET.type_of_transmission != "default" %}
+                            <input type="hidden" name="type_of_transmission" value="{{ request.GET.type_of_transmission }}">
+                        {% endif %}
+                        {% if request.GET.year_before %}
+                            <input type="hidden" name="year_before" value="{{ request.GET.year_before }}">
+                        {% endif %}
+                        {% if request.GET.year_after %}
+                            <input type="hidden" name="year_after" value="{{ request.GET.year_after }}">
+                        {% endif %}
+                        {% if request.GET.type_of_oil and request.GET.type_of_oil != "default" %}
+                            <input type="hidden" name="type_of_oil" value="{{ request.GET.type_of_oil }}">
+                        {% endif %}
+                        {% if request.GET.max_price %}
+                            <input type="hidden" name="max_price" value="{{ request.GET.max_price }}">
+                        {% endif %}
+                        {% if request.GET.order_by and request.GET.order_by != "default" %}
+                            <input type="hidden" name="order_by" value="{{ request.GET.order_by }}">
+                        {% endif %} -->
                         
                         <div class="row">
                             <div class="col-md-6 mb-3">
-                                <label for="id_brand" class="form-label">Марку</label>
-                                <input
-                                    type="text"
-                                    class="form-control"
-                                    id="id_brand"
-                                    name="brand" 
-                                    value="{% if request.GET.brand %}{{ request.GET.brand }}{% endif %}"
-                                    placeholder="Введите марку автомобиля"
-                                />
-                            </div>
-                            <div class="col-md-6 mb-3">
-                                <label for="id_model"
-                                    class="form-label">Модель</label>
-                                <input
-                                    type="text"
-                                    class="form-control"
-                                    id="id_model"
-                                    value="{% if request.GET.model %}{{ request.GET.model }}{% endif %}"
-                                    placeholder="Введите модель автомобиля"
-                                    name="model" />
-                            </div>
-                            <div class="col-md-6 mb-3">
-                                <label for="id_max_mileage"
-                                    class="form-label">Максимальный пробег</label>
-                                <input
-                                    type="text"
-                                    class="form-control"
-                                    id="id_max_mileage"
-                                    value="{% if request.GET.max_mileage %}{{ request.GET.max_mileage }}{% endif %}"
-                                    placeholder="Введите максимальный пробег"
-                                    name="max_mileage" />
-                            </div>
-                            <!-- <div class="col-md-6 mb-3">
-                                <label for="id_volume" class="form-label">Объем
-                                    двигателя</label>
-                                <input
-                                    type="text"
-                                    class="form-control"
-                                    id="id_volume"
-                                    placeholder="Введите объем двигателя"
-                                    name="volume" />
-                            </div> -->
-                            <div class="col-md-6 mb-3">
-                                <label for="id_first_name" class="form-label">Тип
-                                    коробки передач</label>
-                                <select class="form-select"
-                                    aria-label="Default select example" name="type_of_transmission">
-                                    <option {% if not request.GET.type_of_transmission or request.GET.type_of_transmission == "default" %}selected{% endif %}  value="default">Любая</option>
-                                    <option {% if request.GET.type_of_transmission == "mechanical" %}selected{% endif %}  value="mechanical">Механическая</option>
-                                    <option {% if request.GET.type_of_transmission == "automatic" %}selected{% endif %}  value="automatic">Автоматическая</option>
-                                    <option {% if request.GET.type_of_transmission == "robotic" %}selected{% endif %}  value="robotic">Робот</option>
+                                <label for="id_brand" class="form-label">Марка</label>
+                                <select class="form-select" aria-label="Default select example" 
+                                        name="brand" onchange="this.form.submit()">
+                                    <option {% if not request.GET.brand or request.GET.brand == "default" %}selected{% endif %} value="default">Любая</option>
+                                    {% for my_brand in brands %}
+                                        <option {% if request.GET.brand == my_brand.name %}selected{% endif %} value="{{ my_brand.name }}">{{ my_brand.name }}</option>
+                                    {% endfor %}
                                 </select>
                             </div>
+                            
                             <div class="col-md-6 mb-3">
-                                <label for="id_year_before" class="form-label">Год
-                                    выпуска (от)</label>
-                                <input
-                                    type="text"
-                                    class="form-control"
-                                    id="id_year_before"
-                                    value="{% if request.GET.year_before %}{{ request.GET.before }}{% endif %}"
-                                    placeholder="Введите год выпуска автомобиля (от)"
-                                    name="year_before" />
+                                <label for="id_model" class="form-label">Модель</label>
+                                <select class="form-select" aria-label="Default select example" name="model">
+                                    <option {% if not request.GET.model or request.GET.model == "default" %}selected{% endif %} value="default">Любая</option>
+                                    {% for my_model in models %}
+                                        <option {% if request.GET.model == my_model.name %}selected{% endif %} value="{{ my_model.name }}">{{ my_model.name }}</option>
+                                    {% endfor %}
+                                </select>
                             </div>
+                            
                             <div class="col-md-6 mb-3">
-                                <label for="id_year_after" class="form-label">Год
-                                    выпуска (до)</label>
-                                <input
-                                    type="text"
-                                    class="form-control"
-                                    id="id_year_after"
+                                <label for="id_max_mileage" class="form-label">Максимальный пробег</label>
+                                <input type="text" class="form-control" id="id_max_mileage"
+                                    value="{% if request.GET.max_mileage %}{{ request.GET.max_mileage }}{% endif %}"
+                                    placeholder="Введите максимальный пробег" name="max_mileage" />
+                            </div>
+                            
+                            <div class="col-md-6 mb-3">
+                                <label for="id_first_name" class="form-label">Тип коробки передач</label>
+                                <select class="form-select" aria-label="Default select example" name="type_of_transmission">
+                                    <option {% if not request.GET.type_of_transmission or request.GET.type_of_transmission == "default" %}selected{% endif %} value="default">Любая</option>
+                                    <option {% if request.GET.type_of_transmission == "mechanical" %}selected{% endif %} value="mechanical">Механическая</option>
+                                    <option {% if request.GET.type_of_transmission == "automatic" %}selected{% endif %} value="automatic">Автоматическая</option>
+                                    <option {% if request.GET.type_of_transmission == "robotic" %}selected{% endif %} value="robotic">Робот</option>
+                                </select>
+                            </div>
+                            
+                            
+                            <div class="col-md-6 mb-3">
+                                <label for="id_year_before" class="form-label">Год выпуска (от)</label>
+                                <input type="text" class="form-control" id="id_year_before"
+                                    value="{% if request.GET.year_before %}{{ request.GET.year_before }}{% endif %}"
+                                    placeholder="Введите год выпуска автомобиля (от)" name="year_before" />
+                            </div>
+                            
+                            <div class="col-md-6 mb-3">
+                                <label for="id_year_after" class="form-label">Год выпуска (до)</label>
+                                <input type="text" class="form-control" id="id_year_after"
                                     value="{% if request.GET.year_after %}{{ request.GET.year_after }}{% endif %}"
-                                    placeholder="Введите год выпуска автомобиля (до)"
-                                    name="year_after" />
+                                    placeholder="Введите год выпуска автомобиля (до)" name="year_after" />
                             </div>
+                            
                             <div class="col-md-6 mb-3">
-                                <label for="id_first_name" class="form-label">Тип
-                                    топлива</label>
-                                <select class="form-select"
-                                    aria-label="Default select example" name="type_of_oil">
-                                    <option {% if not request.GET.type_of_oil or request.GET.type_of_oil == "default" %}selected{% endif %}  value="default">Любой</option>
+                                <label for="id_first_name" class="form-label">Тип топлива</label>
+                                <select class="form-select" aria-label="Default select example" name="type_of_oil">
+                                    <option {% if not request.GET.type_of_oil or request.GET.type_of_oil == "default" %}selected{% endif %} value="default">Любой</option>
                                     <option {% if request.GET.type_of_oil == "gasoline" %}selected{% endif %} value="gasoline">Бензин</option>
                                     <option {% if request.GET.type_of_oil == "diesel" %}selected{% endif %} value="diesel">Дизель</option>
                                     <option {% if request.GET.type_of_oil == "gas" %}selected{% endif %} value="gas">Газ</option>
                                 </select>
                             </div>
+                            
                             <div class="col-md-6 mb-3">
-                                <label for="id_max_price"
-                                    class="form-label">Максимальная цена</label>
-                                <input
-                                    type="text"
-                                    class="form-control"
-                                    id="id_max_price"
+                                <label for="id_max_price" class="form-label">Максимальная цена</label>
+                                <input type="text" class="form-control" id="id_max_price"
                                     value="{% if request.GET.max_price %}{{ request.GET.max_price }}{% endif %}"
-                                    placeholder="Введите максимальную цену"
-                                    name="max_price" />
+                                    placeholder="Введите максимальную цену" name="max_price" />
                             </div>
                         </div>
 
@@ -158,38 +145,35 @@
                             Найти
                         </button>
                     </form>
-
                 {% elif request.GET.search_type == 'electro_car' %}
                     <form action="{% url 'car:catalog' category_slug%}" method="get">
                         <input type="hidden" name="search_type" value="electro_car">
     
-                        {% for key, value in request.GET.items %}
+                        <!-- {% for key, value in request.GET.items %}
                             {% if key != 'search_type' %}
                                 <input type="hidden" name="{{ key }}" value="{{ value }}">
                             {% endif %}
-                        {% endfor %}
+                        {% endfor %} -->
                         <div class="row">
                             <div class="col-md-6 mb-3">
-                                <label for="id_brand" class="form-label">Марку</label>
-                                <input
-                                    type="text"
-                                    class="form-control"
-                                    id="id_brand"
-                                    name="brand" 
-                                    value="{% if request.GET.brand %}{{ request.GET.brand }}{% endif %}"
-                                    placeholder="Введите марку автомобиля"
-                                />
+                                <label for="id_brand" class="form-label">Марка</label>
+                                <select class="form-select" aria-label="Default select example" 
+                                        name="brand" onchange="this.form.submit()">
+                                    <option {% if not request.GET.brand or request.GET.brand == "default" %}selected{% endif %} value="default">Любая</option>
+                                    {% for my_brand in brands %}
+                                        <option {% if request.GET.brand == my_brand.name %}selected{% endif %} value="{{ my_brand.name }}">{{ my_brand.name }}</option>
+                                    {% endfor %}
+                                </select>
                             </div>
+                            
                             <div class="col-md-6 mb-3">
-                                <label for="id_model"
-                                    class="form-label">Модель</label>
-                                <input
-                                    type="text"
-                                    class="form-control"
-                                    id="id_model"
-                                    value="{% if request.GET.model %}{{ request.GET.model }}{% endif %}"
-                                    placeholder="Введите модель автомобиля"
-                                    name="model" />
+                                <label for="id_model" class="form-label">Модель</label>
+                                <select class="form-select" aria-label="Default select example" name="model">
+                                    <option {% if not request.GET.model or request.GET.model == "default" %}selected{% endif %} value="default">Любая</option>
+                                    {% for my_model in models %}
+                                        <option {% if request.GET.model == my_model.name %}selected{% endif %} value="{{ my_model.name }}">{{ my_model.name }}</option>
+                                    {% endfor %}
+                                </select>
                             </div>
                             <div class="col-md-6 mb-3">
                                 <label for="id_max_mileage"
@@ -254,7 +238,7 @@
 
 <section class="catalog">
     <div class="container">
-        <div class="form_block">
+        <!-- <div class="form_block">
             <div class="dropdown mb-2">
                 <button class="button_style" type="button"
                     data-bs-toggle="dropdown"
@@ -302,7 +286,7 @@
                     </div>
                 </form>
             </div>
-        </div>
+        </div> -->
         <h2>CHOOSE YOUR DREAM</h2>
 
         <!-- <div class="buttons-categories">
@@ -345,30 +329,30 @@
             {% endfor %}
         </div>
         {%if page_obj.has_other_pages %}
-        <div class="menu-pag">
-            {% if page_obj.has_previous %}
-            <a class="back"
-                href="?{% change_params page=page_obj.previous_page_number%}"><span>
-                    <</span></a>
-            {% endif %}
-            {% for p in page_obj.paginator.page_range %}
-            {% if p == page_obj.number %}
-            <a class="page-clicked" href="#">
-                <span>{{p}}</span></a>
-            {% elif p > page_obj.number|add:-2 and p < page_obj.number|add:2 %}
-            <a
-                class="page" href="?{% change_params page=p%}">
-                <span>{{p}}</span></a>
-            {% endif %}
-            {% endfor %}
+            <div class="menu-pag">
+                {% if page_obj.has_previous %}
+                <a class="back"
+                    href="?{% change_params page=page_obj.previous_page_number%}"><span>
+                        <</span></a>
+                {% endif %}
+                {% for p in page_obj.paginator.page_range %}
+                {% if p == page_obj.number %}
+                <a class="page-clicked" href="#">
+                    <span>{{p}}</span></a>
+                {% elif p > page_obj.number|add:-2 and p < page_obj.number|add:2 %}
+                <a
+                    class="page" href="?{% change_params page=p%}">
+                    <span>{{p}}</span></a>
+                {% endif %}
+                {% endfor %}
 
-            {% if page_obj.has_next %}
-            <a class="dot" href="#"><span>...</span></a>
-            <a class="next"
-                href="?{% change_params page=page_obj.next_page_number%}"><span>></span></a>
-            {% endif %}
+                {% if page_obj.has_next %}
+                <a class="dot" href="#"><span>...</span></a>
+                <a class="next"
+                    href="?{% change_params page=page_obj.next_page_number%}"><span>></span></a>
+                {% endif %}
 
-        </div>
+            </div>
         {% endif%}
     </div>
 </section>
