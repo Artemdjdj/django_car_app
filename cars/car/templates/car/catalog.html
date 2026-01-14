@@ -31,13 +31,15 @@
                 <div class="form_of_type_of_car">
                     <div class="main_in_form">
                         <form action="{% url 'car:catalog' category_slug %}" method="get" id="form_selector_form">
-                            <div class="row mb-3">
-                                <div class="col-md-6">
-                                    <label for="form_selector" class="form-label">Выберите тип автомобиля</label>
-                                    <select class="form-select" id="form_selector" name="search_type" onchange="this.form.submit()">
-                                        <option value="fuel_car" {% if not request.GET.search_type or request.GET.search_type == 'fuel_car' %}selected{% endif %}>Автомобиль на топливе</option>
-                                        <option value="electro_car" {% if request.GET.search_type == 'electro_car' %}selected{% endif %}>Электромобиль</option>
-                                    </select>
+                            <div class="container">
+                                <div class="row justify-content-center">
+                                    <div class="col-md-6 col-lg-4">
+                                        <label for="form_selector" class="form-label">Выберите тип автомобиля</label>
+                                        <select class="form-select" id="form_selector" name="search_type" onchange="this.form.submit()">
+                                            <option value="fuel_car" {% if not request.GET.search_type or request.GET.search_type == 'fuel_car' %}selected{% endif %}>Автомобиль на топливе</option>
+                                            <option value="electro_car" {% if request.GET.search_type == 'electro_car' %}selected{% endif %}>Электромобиль</option>
+                                        </select>
+                                    </div>
                                 </div>
                             </div>
                         </form>
@@ -46,29 +48,7 @@
                 {% if not request.GET.search_type or request.GET.search_type == 'fuel_car' %}
                     <form action="{% url 'car:catalog' category_slug %}" method="get">
                         <input type="hidden" name="search_type" value="fuel_car">
-                        
-                        <!-- {% if request.GET.max_mileage %}
-                            <input type="hidden" name="max_mileage" value="{{ request.GET.max_mileage }}">
-                        {% endif %}
-                        {% if request.GET.type_of_transmission and request.GET.type_of_transmission != "default" %}
-                            <input type="hidden" name="type_of_transmission" value="{{ request.GET.type_of_transmission }}">
-                        {% endif %}
-                        {% if request.GET.year_before %}
-                            <input type="hidden" name="year_before" value="{{ request.GET.year_before }}">
-                        {% endif %}
-                        {% if request.GET.year_after %}
-                            <input type="hidden" name="year_after" value="{{ request.GET.year_after }}">
-                        {% endif %}
-                        {% if request.GET.type_of_oil and request.GET.type_of_oil != "default" %}
-                            <input type="hidden" name="type_of_oil" value="{{ request.GET.type_of_oil }}">
-                        {% endif %}
-                        {% if request.GET.max_price %}
-                            <input type="hidden" name="max_price" value="{{ request.GET.max_price }}">
-                        {% endif %}
-                        {% if request.GET.order_by and request.GET.order_by != "default" %}
-                            <input type="hidden" name="order_by" value="{{ request.GET.order_by }}">
-                        {% endif %} -->
-                        
+                    
                         <div class="row">
                             <div class="col-md-6 mb-3">
                                 <label for="id_brand" class="form-label">Марка</label>
@@ -141,9 +121,11 @@
                             </div>
                         </div>
 
-                        <button type="submit" class="btn btn-outline-success">
+                        <div class ="send_button">
+                            <button type="submit" class="btn btn-outline-success">
                             Найти
-                        </button>
+                            </button>
+                        </div>
                     </form>
                 {% elif request.GET.search_type == 'electro_car' %}
                     <form action="{% url 'car:catalog' category_slug%}" method="get">
@@ -225,10 +207,11 @@
 
 
                         </div>
-
-                        <button type="submit" class="btn btn-outline-success">
+                        <div class ="send_button">
+                            <button type="submit" class="btn btn-outline-success">
                             Найти
-                        </button>
+                            </button>
+                        </div>
                     </form>
                 {%endif%}
             </div>

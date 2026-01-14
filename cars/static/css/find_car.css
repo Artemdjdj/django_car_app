@@ -37,3 +37,9 @@ body {
 .main_in_form{
     width:100%;
 }
+
+
+.send_button{
+    display: flex;
+    justify-content: flex-end;
+}
