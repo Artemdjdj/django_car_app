@@ -6,5 +6,6 @@ app_name = 'main'
 
 urlpatterns = [
     path('about/', views.about, name="about"),
+    # path('comment/', views.comment, name="comment"),
     path('', views.index, name="index") 
 ]

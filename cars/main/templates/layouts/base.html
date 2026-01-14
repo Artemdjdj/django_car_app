@@ -53,6 +53,7 @@
               </div>
             {% else %}
               <div class="auth_user">
+                <a href="{% url 'user:profile_settings' %}">Настройки</a>
                 <a href="{% url 'user:profile' %}">{{user.username}}</a>
               </div>
               <div class="logout">

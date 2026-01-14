@@ -18,7 +18,8 @@ body {
     background-color: rgb(84, 137, 81);
     border-radius: 20px;
     padding: 30px 40px;
-    margin-top: 100px;
+    margin-top: 200px;
+    margin-bottom: 200px;
 
 }
 
@@ -81,7 +82,7 @@ body {
 }
 
 .remember a:hover {
-    color: rgb(3, 158, 8);
+    color: rgba(9, 11, 9, 0.762);
 }
 
 .wrapper .btn {

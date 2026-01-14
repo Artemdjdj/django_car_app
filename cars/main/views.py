@@ -16,3 +16,8 @@ def index(request):
 def about(request):
     return render(request, 'main/about.html')
 
+# def comment(request):
+#     return render(request, 'main/comment.html')
+
+
+

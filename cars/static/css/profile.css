@@ -1,5 +1,5 @@
 .main_block{
-    margin-top:50px;
+    margin-top:0px;
     display:block;
     
 }
@@ -12,7 +12,7 @@
 }
 
 .menu-items{
-    margin-top: 50px;
+    margin-top: 0px;
     display:flex;
     justify-content: center;
 }

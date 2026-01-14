@@ -72,6 +72,87 @@ body {
     border: none;
 }
 
+.clients {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin-top: 70px;
+}
+
+.clients h2 {
+    color: azure;
+    white-space: nowrap;
+}
+
+ .menu-wishes {
+     display: flex;
+     gap: 15px;
+     flex-wrap: wrap;
+     margin-bottom: 30px;
+     margin-top:70px;
+ }
+
+ .menu-wishe {
+     width: 32%;
+     background-color: rgba(145, 140, 140, 0.867);
+     border-radius: 40px;
+     text-align: center;
+     padding: 20px 29px;
+ }
+
+ .menu-wishe h5 {
+     color: rgb(232, 233, 235);
+     margin-bottom: 5px;
+     margin-top:0px;
+     line-height: 200%;
+     text-align: left;
+ }
+
+ .menu-wishe p {
+     font-size: 17px;
+     font-weight: 400;
+     text-align:left;
+     color: rgb(235, 235, 235);
+     margin-bottom: 5px;
+ }
+
+ .menu-wishe a {
+     font-size: 17px;
+     font-weight: 400;
+     text-align:left;
+     color: #2f312f;
+     text-decoration: none;
+ }
+
+ .add_comment{
+    display:flex;
+    justify-content: center;
+ }
+
+ .review-button {
+    display: inline-block;
+    padding: 12px 24px;
+    background-color: #4CAF50;
+    color: white;
+    text-decoration: none;
+    border-radius: 6px;
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.review-button:hover {
+    background-color: #45a049;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.review-button:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
 .forming {
     background-color: rgb(69, 103, 35);
     border-radius: 60px;
@@ -147,6 +228,8 @@ body {
 }
 
 
+
+
 @media (max-width: 1400px) {
     .wrapper {
         margin: 20px 40px;
@@ -169,6 +252,10 @@ body {
     .header p {
         font-size: 20px;
     }
+
+    .menu-wishe {
+         width: 48%;
+     }
     
     .information, .forming {
         width: 45%;
@@ -190,6 +277,10 @@ body {
 @media (max-width: 992px) {
     .wrapper {
         margin: 20px 30px;
+    }
+
+    .clients h2 {
+        font-size:30px;
     }
     
     .inform {
@@ -218,6 +309,10 @@ body {
     
     .header p {
         font-size: 18px;
+    }
+
+    .clients h2 {
+        font-size:27px;
     }
     
     .info-card h1 {
@@ -272,3 +367,4 @@ body {
         height: 300px;
     }
 }
+

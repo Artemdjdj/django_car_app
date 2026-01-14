@@ -72,6 +72,37 @@ body {
     border: none;
 }
 
+ .menu-items {
+     display: flex;
+     gap: 10px;
+     flex-wrap: wrap;
+     margin-bottom: 88px;
+ }
+
+ .menu-item {
+     width: 32%;
+     background-color: rgba(87, 85, 85, 0.867);
+     border-radius: 0px;
+     text-align: center;
+     padding: 35px 29px;
+     margin-bottom: 40px;
+ }
+
+ .menu-item h3 {
+     font-size: 30px;
+     font-weight: 500;
+     color: rgb(232, 233, 235);
+     margin-bottom: 5px;
+     line-height: 200%;
+ }
+
+ .menu-item p {
+     font-size: 17px;
+     font-weight: 400;
+     color: rgb(235, 235, 235);
+     margin-bottom: 30px;
+ }
+
 .forming {
     background-color: rgb(69, 103, 35);
     border-radius: 60px;
