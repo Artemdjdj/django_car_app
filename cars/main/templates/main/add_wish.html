@@ -1,0 +1,35 @@
+
+
+{% extends "layouts/base.html" %}
+{% load static %}
+
+{% block css %}
+  <link rel="stylesheet" href="{% static 'css/about.css' %}">
+{% endblock css %}
+
+
+{% block header %}
+{% endblock header %}
+
+{% block content %}
+<div class="add_wish">
+    <div class="forming">
+        <form action="{% url 'main:add_wish' %}" method="post">
+            {% csrf_token %}
+            <div class="info">
+                <h1>
+                    Оцените нашу работу
+                </h1>
+            </div>
+            <div class="input-box_big">
+                <textarea id= "id_wish" name="wish" required placeholder="Введите ваш комментарий...">{{form.wish.value|default:''}}</textarea>
+            </div>
+        <button type="submit" class="btn">Отправить</button>
+        </form>
+    </div>
+</div>
+{% endblock content %}
+
+
+{% block footer %}
+{% endblock footer %}

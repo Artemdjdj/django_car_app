@@ -54,7 +54,7 @@
  nav a {
      text-decoration: none;
      margin-right: 45px;
-     color: rgb(1, 147, 57);
+     color: rgb(69, 103, 35);
      display: inline-block;
      font-size: 24px;
      transition: all 0.4s ease;
@@ -65,7 +65,7 @@
  }
 
  nav a.check {
-     color: rgb(1, 147, 57);
+     color: rgb(69, 103, 35);
  }
 
  .header-content_last a {

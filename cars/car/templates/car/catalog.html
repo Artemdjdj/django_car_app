@@ -1,6 +1,5 @@
 {% extends 'layouts/base.html'%}
 {%load static %}
-{% load name_of_url %}
 
 {% block css%}
 <link
@@ -311,32 +310,7 @@
             </div>
             {% endfor %}
         </div>
-        {%if page_obj.has_other_pages %}
-            <div class="menu-pag">
-                {% if page_obj.has_previous %}
-                <a class="back"
-                    href="?{% change_params page=page_obj.previous_page_number%}"><span>
-                        <</span></a>
-                {% endif %}
-                {% for p in page_obj.paginator.page_range %}
-                {% if p == page_obj.number %}
-                <a class="page-clicked" href="#">
-                    <span>{{p}}</span></a>
-                {% elif p > page_obj.number|add:-2 and p < page_obj.number|add:2 %}
-                <a
-                    class="page" href="?{% change_params page=p%}">
-                    <span>{{p}}</span></a>
-                {% endif %}
-                {% endfor %}
-
-                {% if page_obj.has_next %}
-                <a class="dot" href="#"><span>...</span></a>
-                <a class="next"
-                    href="?{% change_params page=page_obj.next_page_number%}"><span>></span></a>
-                {% endif %}
-
-            </div>
-        {% endif%}
+        {% include 'layouts/pagination.html' %}
     </div>
 </section>
 {%endblock%}

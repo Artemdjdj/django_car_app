@@ -92,7 +92,7 @@ body {
      margin-top:70px;
  }
 
- .menu-wishe {
+ .menu-wish {
      width: 32%;
      background-color: rgba(145, 140, 140, 0.867);
      border-radius: 40px;
@@ -100,7 +100,7 @@ body {
      padding: 20px 29px;
  }
 
- .menu-wishe h5 {
+ .menu-wish h5 {
      color: rgb(232, 233, 235);
      margin-bottom: 5px;
      margin-top:0px;
@@ -108,7 +108,7 @@ body {
      text-align: left;
  }
 
- .menu-wishe p {
+ .menu-wish p {
      font-size: 17px;
      font-weight: 400;
      text-align:left;
@@ -116,7 +116,7 @@ body {
      margin-bottom: 5px;
  }
 
- .menu-wishe a {
+ .menu-wish a {
      font-size: 17px;
      font-weight: 400;
      text-align:left;
@@ -153,7 +153,11 @@ body {
     transform: translateY(0);
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
-
+.add_wish{
+    margin-top:100px;
+    display:flex;
+    justify-content: center;
+}
 .forming {
     background-color: rgb(69, 103, 35);
     border-radius: 60px;
@@ -254,7 +258,7 @@ body {
         font-size: 20px;
     }
 
-    .menu-wishe {
+    .menu-wish {
          width: 48%;
      }
     

@@ -1,5 +1,4 @@
 {% extends 'layouts/base.html' %}
-{% load name_of_url %}
 {% load static %}
 
 {% block css %}
@@ -27,19 +26,6 @@
                     <p>best_car_in_minsk@gmail.com</p>
                 </div>
             </div>
-            <!-- <div class="forming">
-                <form action="">
-                    <div class="info">
-                        <h1>
-                            Оцените нашу работу
-                        </h1>
-                    </div>
-                    <div class="input-box_big">
-                        <textarea required placeholder="Введите ваш комментарий..."></textarea>
-                    </div>
-                <button type="submit" class="btn">Отправить</button>
-                </form>
-            </div> -->
         </div>
 
         <div class="clients">
@@ -54,44 +40,19 @@
             </div>
         </div>        
          <div class="menu-wishes">
-            {% for wishe in page_obj %}
-                <div class="menu-wishe">
-                    <h5>{{wishe.user.username}}</h5>
+            {% for wish in page_obj %}
+                <div class="menu-wish">
+                    <h5>{{wish.user.username}}</h5>
                     <p>
-                        {{wishe.wish|truncatechars:40}}
+                        {{wish.wish|truncatechars:40}}
                     </p>
-                    <p><a href="{% url 'main:wishe' wishe.id %}">Еще</a></p>
+                    <p><a href="{% url 'main:wish' wish.id %}">Еще</a></p>
                 </div>
             {% endfor %}
         </div>
-        {%if page_obj.has_other_pages %}
-            <div class="menu-pag">
-                {% if page_obj.has_previous %}
-                <a class="back"
-                    href="?{% change_params page=page_obj.previous_page_number%}"><span>
-                        <</span></a>
-                {% endif %}
-                {% for p in page_obj.paginator.page_range %}
-                {% if p == page_obj.number %}
-                <a class="page-clicked" href="#">
-                    <span>{{p}}</span></a>
-                {% elif p > page_obj.number|add:-2 and p < page_obj.number|add:2 %}
-                <a
-                    class="page" href="?{% change_params page=p%}">
-                    <span>{{p}}</span></a>
-                {% endif %}
-                {% endfor %}
-
-                {% if page_obj.has_next %}
-                <a class="dot" href="#"><span>...</span></a>
-                <a class="next"
-                    href="?{% change_params page=page_obj.next_page_number%}"><span>></span></a>
-                {% endif %}
-
-            </div>
-        {% endif%}
+        {% include 'layouts/pagination.html' %}
         <div class="add_comment">
-            <a href="#" class="review-button">Добавить отзыв</a>
+            <a href="{% url 'main:add_wish' %}" class="review-button">Добавить отзыв</a>
         </div>
         <div class="map-container">
             <iframe src="https://www.openstreetmap.org/export/embed.html?bbox=37.6173,55.7558,37.6273,55.7658&layer=mapnik"></iframe>
