@@ -13,14 +13,11 @@
 {% block content %}
 <div class="main-info">
     <div class="info">
-        <h2>Пользователь 1</h2>
+        <h2>{{wishe.user.username}}</h2>
         <p>
-            Наверняка вам понравится данная платформа, 
-            я смогла найти себе прекрасный автомобиль, 
-            кроме того можно брать в
-            а ренду очень рекомендую!!!!
+            {{wishe.wish}}
         </p>
-        <p><a href="#">Назад</a></p>
+        <p><a href="{% url 'main:about' %}">Назад</a></p>
     </div>
 </div>
 {% endblock content %}

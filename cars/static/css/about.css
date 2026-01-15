@@ -125,6 +125,7 @@ body {
  }
 
  .add_comment{
+    margin-top:50px;
     display:flex;
     justify-content: center;
  }
@@ -132,7 +133,7 @@ body {
  .review-button {
     display: inline-block;
     padding: 12px 24px;
-    background-color: #4CAF50;
+    background-color:rgb(69, 103, 35);
     color: white;
     text-decoration: none;
     border-radius: 6px;
@@ -143,7 +144,7 @@ body {
 }
 
 .review-button:hover {
-    background-color: #45a049;
+    background-color: rgb(69, 103, 35);
     transform: translateY(-2px);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }

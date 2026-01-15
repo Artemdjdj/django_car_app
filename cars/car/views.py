@@ -3,7 +3,6 @@ from .models import FuelCar, ElectricCar, CarBrand, CarCategory, CarModel
 from django.core.paginator import Paginator
 from .utils import filter_fuel_car, filter_electric_car, get_all_cars
 
-from .models import FuelCar, ElectricCar
 from itertools import chain
 from django.db.models import Q
 

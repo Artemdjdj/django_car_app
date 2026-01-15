@@ -1,3 +1,6 @@
+body{
+    background-color: black;
+}
 .main-info {
     display: flex;
     justify-content: center;

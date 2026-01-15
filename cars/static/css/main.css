@@ -1,5 +1,5 @@
  body {
-     font-family: "Bebas Neue", serif;
+     font-family: "Roboto Condensed", serif;
      font-size: 25px;
      height: 100%;
      scroll-behavior: smooth;
@@ -54,7 +54,7 @@
  nav a {
      text-decoration: none;
      margin-right: 45px;
-     color: rgb(8, 85, 38);
+     color: rgb(1, 147, 57);
      display: inline-block;
      font-size: 24px;
      transition: all 0.4s ease;
@@ -65,12 +65,12 @@
  }
 
  nav a.check {
-     color: rgba(41, 105, 60, 0.805);
+     color: rgb(1, 147, 57);
  }
 
  .header-content_last a {
      align-items: center;
-     background-color: rgba(47, 150, 78, 0.805);
+     background-color: rgba(43, 145, 73, 0.805);
      text-decoration: none;
      color: #fff;
      padding: 10px 40px;
@@ -93,7 +93,7 @@
  .auth_user a{
      align-items: center;
      text-decoration: none;
-     color: #2c795e;
+     color: rgb(1, 147, 57);
      transition: color 0.4s ease;
  }
 
@@ -108,7 +108,7 @@
  .logout a{
      align-items: center;
      text-decoration: none;
-     color: #9ae5cb;
+     color: rgb(1, 147, 57);
      transition: color 0.4s ease;
  }
 
@@ -249,7 +249,7 @@
  }
 
  .catalog {
-     background-color: rgb(53, 50, 50);
+     background-color: rgb(38, 35, 35);
      padding-top: 164px;
      padding-bottom: 200px;
      margin-right:0px;
@@ -766,7 +766,29 @@
 
      .menu-pag {
          flex-wrap: wrap;
-         gap: 10px;
+         gap: 8px;
          justify-content: center;
      }
+
+     .back{
+        height:48px;
+        width:48px;
+     }
+
+     .page{
+        height:48px;
+        width:48px;
+     }
+
+     .page-clicked{
+        height:48px;
+        width:48px;
+     }
+
+     .next{
+        height:48px;
+        width:48px;
+     }
+
+
  }

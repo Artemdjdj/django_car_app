@@ -1,5 +1,13 @@
+ body {
+     font-family: "Roboto Condensed", serif;
+     font-size: 25px;
+     height: 100%;
+     scroll-behavior: smooth;
+     background-color: rgb(38, 35, 35);
+
+ }
 .main_block{
-    margin-top:0px;
+    margin-top:70px;
     display:block;
     
 }
@@ -12,7 +20,7 @@
 }
 
 .menu-items{
-    margin-top: 0px;
+    margin-top: 70px;
     display:flex;
     justify-content: center;
 }
