@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib import admin
+from django.conf import settings
 
 
 class CarBrand(models.Model):
@@ -47,7 +48,6 @@ class CarCategory(models.Model):
 class Car(models.Model):
     brand = models.ForeignKey(to='CarBrand', blank=True, null=True, on_delete=models.CASCADE, verbose_name="Марка")
     category = models.ForeignKey(to='CarCategory',blank=True, null=True, on_delete = models.CASCADE, verbose_name="Категория")
-    # model = models.CharField(max_length=100, verbose_name = "Модель")
     model = models.ForeignKey(to='CarModel', blank=True, null=True, on_delete=models.CASCADE, verbose_name="Модель")
     price = models.DecimalField(max_digits=15,decimal_places=3,verbose_name="Цена")
     mileage = models.DecimalField(max_digits=15,decimal_places=3, verbose_name="Пробег")
@@ -58,7 +58,8 @@ class Car(models.Model):
     country = models.CharField(blank=True, null=True, verbose_name="Страна производства")
     color= models.CharField(max_length=50,verbose_name = "Цвет")
     slug = models.SlugField(max_length=150, unique=True, blank=True, null=True, verbose_name="Доменное имя")
-    
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, verbose_name="Пользователь")
+
     class Meta:
         abstract=True
         

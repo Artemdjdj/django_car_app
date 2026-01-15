@@ -10,55 +10,50 @@
 
 {% block content %}
     <div class="main_block">
-    <div>
-        <h1>Мои объявления</h1>
-    </div>
-    <div class="menu-items">
-        <div class="menu-item">
-            <img src="{% static 'images/bmw1.png'%}">
-            <h3>BMW</h3>
-            <p>
-                Цена: 30000$<br>
-                Год создания: 2023<br>
-                Пробег: 140000км<br>
-            </p>
-            <p class ="description">
-                    Машина была произведена в Германии в 2023 году, пробег 140000км.
-                </p>
-            <div class="menu-item_last">
-                <a href="#">Изменить информацию</a>
-            </div>
-
+        <div>
+            <h1>Мои объявления</h1>
         </div>
-        <div class="menu-item">
-            <img src="{% static 'images/porshe.png' %}">
-            <h3>Porshe</h3>
-            <p>
-                Цена: 30000$<br>
-                Год создания: 2023<br>
-                Пробег: 140000км<br>
-            </p>
-            <p class ="description">
-                    Машина была произведена в Германии в 2023 году, пробег 140000км.
-                </p>
-            <div class="menu-item_last">
-                <a href="#">Изменить информацию</a>
-            </div>
-        </div>
-        <div class="menu-item">
-            <img src="{% static 'images/gelik.png' %}">
-            <h3>Mercedes</h3>
-            <p>
-                Цена: 30000$<br>
-                Год создания: 2023<br>
-                Пробег: 140000км<br>
-            </p>
-            <p class ="description">
-                    Машина была произведена в Германии в 2023 году, пробег 140000км.
-                </p>
-            <div class="menu-item_last">
-                <a href="#">Изменить информацию</a>
-            </div>
+        <div class="menu-items">
+            {% for car in fuel_cars %}
+                <div class="menu-item">
+                    {%if car.get_main_picture %}
+                        <img src="{{car.get_main_picture.url}}" height="225px" ;
+                        width="255px" />
+                    {% endif %}
+                    <h3>{{car.brand}}</h3>
+                    <p>
+                        Цена: {{car.price}}$<br />
+                        Год создания: {{car.year}}<br />
+                        Пробег: {{car.mileage}}км<br />
+                    </p>
+                    <p class="description">
+                        {{ car.description|truncatechars:40 }}
+                    </p>
+                    <div class="menu-item_last">
+                        <a href="{% url 'car:car_info' car.slug %}">Изменить</a>
+                    </div>
+                </div>
+            {% endfor %}
+            {% for car in electric_cars %}
+                <div class="menu-item">
+                    {%if car.get_main_picture %}
+                        <img src="{{car.get_main_picture.url}}" height="225px" ;
+                        width="255px" />
+                    {% endif %}
+                    <h3>{{car.brand}}</h3>
+                    <p>
+                        Цена: {{car.price}}$<br />
+                        Год создания: {{car.year}}<br />
+                        Пробег: {{car.mileage}}км<br />
+                    </p>
+                    <p class="description">
+                        {{ car.description|truncatechars:40 }}
+                    </p>
+                    <div class="menu-item_last">
+                        <a href="{% url 'car:car_info' car.slug %}">Изменить</a>
+                    </div>
+                </div>
+            {% endfor %}
         </div>
     </div>
 {% endblock content %}

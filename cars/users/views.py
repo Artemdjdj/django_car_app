@@ -4,6 +4,7 @@ from django.contrib import auth
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.shortcuts import redirect
+from car.models import FuelCar, ElectricCar
 from django.contrib.auth.decorators import login_required
 
 def login(request):
@@ -46,8 +47,13 @@ def registration(request):
 
 @login_required
 def profile(request):
+    current_user = request.user
+    fuel_cars = FuelCar.objects.filter(user = current_user)
+    electric_cars = ElectricCar.objects.filter(user = current_user)
+    
     context = {
-        
+        'fuel_cars':fuel_cars,
+        'electric_cars':electric_cars
     }
     return render(request,"users/profile.html", context)
 

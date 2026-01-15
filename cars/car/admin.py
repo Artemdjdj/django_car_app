@@ -42,13 +42,13 @@ class ElectricCarImageAdmin(admin.ModelAdmin):
 
 class FuelCarAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug':('brand','model', 'mileage', 'price', 'color',)}
-    list_display = ['brand', 'model', 'color', 'engine_displacement', 'price']
+    list_display = ['brand', 'model', 'color', 'engine_displacement', 'price', 'user']
     list_filter = ['brand', 'color', 'price','is_broken']
     search_fields = ['brand', 'color', 'price']
     
 class ElectricCarAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug':('brand','model','mileage', 'price', 'color',)}
-    list_display = ['brand', 'model', 'color', 'battery_capacity', 'price']
+    list_display = ['brand', 'model', 'color', 'battery_capacity', 'price', 'user']
     list_filter = ['brand', 'color', 'price','is_broken']
     search_fields = ['brand', 'color', 'price']
 
