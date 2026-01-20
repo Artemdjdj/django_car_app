@@ -120,8 +120,15 @@ class FuelCar(Car):
         return f"{self.brand} {self.model} ({self.year_produced}) - {self.get_fuel_type_display()}"
     
     def save(self, *args, **kwargs):
-        new_slug = f"fuel_car-{self.category}-{self.brand}-{self.model}-{self.color}-{self.transmission}-{self.id}"
+        new_slug = f"fuel_car-{self.category}-{self.brand}-{self.model}-{self.color}-{self.transmission}"
         unique_slug = slugify(new_slug)
+
+        counter = 1
+        original_slug = unique_slug
+        while self.__class__.objects.filter(slug=unique_slug).exists():
+            unique_slug = f"{original_slug}-{counter}"
+            counter += 1
+
         self.slug = unique_slug
         super().save(*args, **kwargs)
 
@@ -139,8 +146,14 @@ class ElectricCar(Car):
         return f"{self.brand} {self.model} ({self.year_produced}) - Электро"
     
     def save(self, *args, **kwargs):
-        new_slug = f"electro_car-{self.category}-{self.brand}-{self.model}-{self.color}-{self.id}"
+        new_slug = f"electro_car-{self.category}-{self.brand}-{self.model}-{self.color}"
         unique_slug = slugify(new_slug)
+        counter = 1
+        original_slug = unique_slug
+        while self.__class__.objects.filter(slug=unique_slug).exists():
+            unique_slug = f"{original_slug}-{counter}"
+            counter += 1
+
         self.slug = unique_slug
         super().save(*args, **kwargs)
     
