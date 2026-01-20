@@ -10,3 +10,5 @@ class UserWishes(models.Model):
         db_table = "wishes"
         verbose_name = "Отзыв"
         verbose_name_plural = "Отзывы"
+        
+        

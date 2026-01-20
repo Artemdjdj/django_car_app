@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib import admin
 from django.conf import settings
+from django.utils.text import slugify
 
 
 class CarBrand(models.Model):
@@ -20,7 +21,7 @@ class CarBrand(models.Model):
 class CarModel(models.Model):
     name = models.CharField(max_length=100, unique=True, blank=True, null=True, verbose_name="Название модели")
     slug = models.SlugField(max_length=120, unique=True, blank=True, null=True, verbose_name="Доменное имя")
-    brand = brand = models.ForeignKey(to='CarBrand', blank=True, null=True, on_delete=models.CASCADE, verbose_name="Марка")
+    brand = models.ForeignKey(to='CarBrand', blank=True, null=True, on_delete=models.CASCADE, verbose_name="Марка")
     is_fuel_model = models.BooleanField(blank=True, null=True, verbose_name="Топливная модель" )
     
     class Meta:
@@ -117,9 +118,12 @@ class FuelCar(Car):
 
     def __str__(self):
         return f"{self.brand} {self.model} ({self.year_produced}) - {self.get_fuel_type_display()}"
-
-
-
+    
+    def save(self, *args, **kwargs):
+        new_slug = f"fuel_car-{self.category}-{self.brand}-{self.model}-{self.color}-{self.transmission}-{self.id}"
+        unique_slug = slugify(new_slug)
+        self.slug = unique_slug
+        super().save(*args, **kwargs)
 
 class ElectricCar(Car):
     battery_capacity = models.IntegerField(verbose_name="Емкость батареи (кВт⋅ч)")
@@ -133,6 +137,12 @@ class ElectricCar(Car):
 
     def __str__(self):
         return f"{self.brand} {self.model} ({self.year_produced}) - Электро"
+    
+    def save(self, *args, **kwargs):
+        new_slug = f"electro_car-{self.category}-{self.brand}-{self.model}-{self.color}-{self.id}"
+        unique_slug = slugify(new_slug)
+        self.slug = unique_slug
+        super().save(*args, **kwargs)
     
     
 class BaseCarImage(models.Model):

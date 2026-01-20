@@ -1,10 +1,13 @@
+from django.http import HttpResponseRedirect
 from django.shortcuts import render
+from django.urls import reverse
 from .models import FuelCar, ElectricCar, CarBrand, CarCategory, CarModel
 from django.core.paginator import Paginator
 from .utils import filter_fuel_car, filter_electric_car, get_all_cars
-
+from django.contrib.auth.decorators import login_required
 from itertools import chain
 from django.db.models import Q
+from .forms import FuelCarForm, ElectricCarForm
 
 def catalog(request, category_slug):
     page_number = request.GET.get("page")
@@ -68,3 +71,101 @@ def car_info(request, car_slug):
             'brand':brand,
         }
         return render(request, 'car/car.html', context)
+    
+    
+    
+@login_required
+def add_new_car(request):
+    models = None
+    selected_brand = None
+    selected_model = None
+    selected_brand_name = None
+    form=None
+    categories = CarCategory.objects.exclude(slug='vse-kategorii')
+    if request.method == "POST":
+        type_of_form = request.POST.get('type_of_form')
+        selected_model= request.POST.get('model')
+        if type_of_form and type_of_form == 'electro_car':  
+            brands = CarBrand.objects.filter(Q(is_fuel_brand=False) | Q(is_fuel_brand__isnull=True))
+        else:
+            brands = CarBrand.objects.filter(Q(is_fuel_brand=True) | Q(is_fuel_brand__isnull=True))
+        action = request.POST.get('action')
+        if action == 'create_car':
+            if type_of_form=="fuel_car":  
+                form = FuelCarForm(data=request.POST)
+            else:
+                form = ElectricCarForm(data=request.POST)
+
+            brand_id = request.POST.get('brand')
+            model_name = request.POST.get('model')
+            category_id = request.POST.get('category')
+            #print(model_name, category_id)
+
+            if form.is_valid():
+                new_form = form.save(commit=False)
+                brand = CarBrand.objects.get(id=int(brand_id))
+                model = CarModel.objects.get(name__iexact=model_name)
+                category = CarCategory.objects.get(id=int(category_id))
+
+                new_form.brand = brand
+                new_form.category = category
+                new_form.model = model
+                new_form.user = request.user
+                new_form.save()
+                return HttpResponseRedirect(reverse('car:add_car_image'))
+        else:
+            selected_brand = request.POST.get('brand')
+            print(selected_brand)
+            if selected_brand:
+                my_brand = CarBrand.objects.get(id = selected_brand)
+                selected_brand_name =my_brand.name
+                models = CarModel.objects.filter(brand = my_brand.id) if selected_brand else None
+                if type_of_form=='fuel_car':  
+                    form = FuelCarForm(data=request.POST)
+                    models = models.filter(is_fuel_model = True)
+                else:
+                    form = ElectricCarForm(data=request.POST)
+                    models = models.filter(is_fuel_model = False)
+    else:
+        type_of_form = request.GET.get('type_of_form')
+        #selected_model= request.GET.get('model')
+        if type_of_form and type_of_form == 'electro_car':  
+            form = ElectricCarForm()
+            brands = CarBrand.objects.filter(Q(is_fuel_brand=False) | Q(is_fuel_brand__isnull=True))
+        else:
+            form = FuelCarForm()
+            brands = CarBrand.objects.filter(Q(is_fuel_brand=True) | Q(is_fuel_brand__isnull=True))
+    
+    context = {
+        'form':form,
+        'brands': brands,
+        'models': models,
+        'categories':categories,
+        'selected_brand':selected_brand,
+        'selected_brand_name':selected_brand_name,
+        'selected_model':selected_model,
+        'type_of_form':type_of_form,
+    }
+    
+    return render(request, 'car/add_new_car.html', context)
+
+
+@login_required
+def add_car_image(request):
+    # if request.method == "POST":
+    #     action = request.POST.get('action')
+    #     if action == 'create_car':
+    #         form = FuelCarForm(data=request.POST)
+    #         if form.is_valid():
+    #             new_form = form.save(commit=False)
+    #             new_form.user = request.user
+    #             new_form.save()
+    #             return HttpResponseRedirect(reverse('user:profile'))
+    # else:
+    #     form = FuelCarForm()
+    
+    # context = {
+    #     'form':form,
+    # }
+    
+    return render(request, 'car/add_image_to_car.html')

@@ -1,196 +1,322 @@
-.containerrr {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  padding: 20px;
-}
-
-
-.header {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  margin-bottom: 40px;
-  
-}
-
-.some-information {
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
-  max-width: 1200px;
-  margin: 0 auto;
-}
-
-.name h1 {
-  font-size: clamp(40px, 8vw, 100px);
-  font-weight: 700;
-  font-family: "Montserrat", sans-serif;
-  margin: 0;
-}
-
-.image-logo img {
-  width: 100%;
-  max-width: 200px;
-  height: auto;
-}
-
-.opisanie {
-  width: 100%;
-  max-width: 600px;
-}
-
-.ssilka {
-  margin-top: 30px;
-}
-
-.ssilka p {
-  background-color: rgb(31, 154, 76);
-  color: #cac2c2;
-  text-decoration: none;
-  padding: 12px 25px;
-  font-size: clamp(16px, 2vw, 20px);
-  transition: all 0.4s ease;
-  border-radius: 60px;
-  display: inline-block;
-}
-
-.ssilka p:hover {
-  transform: scale(1.1);
-  color: #cac2c2;
-}
-
-.thumbnail {
-  width: 60px;
-  cursor: pointer;
-  margin: 5px;
-}
-
-.thumbnail img {
-  width: 100%;
-  height: auto;
-}
-
-.some-information,
-.opisanie {
-  display: flex;
-  gap: 20px;
+.carousel {
+    overflow: hidden;
 }
 
 .carousel-inner {
-  width: 100%;
-  max-width: 600px;
-  margin: 0 auto;
+    position: relative;
+    margin: 0 auto;
+}
+
+.carousel-item {
+    position: relative;
+    height: 0;
+    padding-bottom: 75%;
+}
+
+.carousel-item img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+@media (min-width: 1200px) {
+    .carousel-inner {
+        max-width: 900px;
+    }
+    .carousel-item {
+        padding-bottom: 65%; 
+    }
+    .carousel-item img {
+        max-height: 600px;
+    }
+}
+
+@media (min-width: 992px) and (max-width: 1199px) {
+    .carousel-inner {
+        max-width: 750px;
+    }
+    .carousel-item {
+        padding-bottom: 70%;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+    .carousel-inner {
+        max-width: 650px;
+    }
+    .carousel-item {
+        padding-bottom: 75%;
+    }
+}
+
+@media (max-width: 767px) {
+    .carousel-inner {
+        max-width: 100%;
+    }
+    .carousel-item {
+        padding-bottom: 75%; 
+    }
+}
+
+@media (max-width: 576px) {
+    .carousel-item {
+        padding-bottom: 80%; 
+    }
+}
+
+@media (min-width: 1200px) {
+    .thumbnail {
+        width: 80px !important;
+        height: 60px;
+        object-fit: cover;
+        cursor: pointer;
+        margin: 5px;
+        border: 2px solid transparent;
+        transition: all 0.3s ease;
+    }
+    .thumbnail:hover {
+        border-color: #249247;
+        transform: scale(1.05);
+    }
+}
+
+@media (min-width: 768px) and (max-width: 1199px) {
+    .thumbnail {
+        width: 70px !important;
+        height: 50px;
+    }
+}
+
+@media (max-width: 767px) {
+    .thumbnail {
+        width: 60px !important;
+        height: 45px;
+    }
+}
+
+@media (max-width: 576px) {
+    .thumbnail {
+        width: 50px !important;
+        height: 40px;
+    }
+}
+
+
+.containerrr {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 20px;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 40px;
+}
+
+.some-information {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+    gap: 40px; 
+}
+
+.name h1 {
+    font-size: clamp(40px, 8vw, 100px);
+    font-weight: 700;
+    font-family: "Montserrat", sans-serif;
+    margin: 0;
+    text-align: center;
+    color: #ffffff;
+}
+
+.opisanie {
+    width: 100%;
+    max-width: 500px; 
+    background: linear-gradient(145deg, #1a1a1a, #2d2d2d);
+    padding: 25px;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.information h1 {
+    color: #34db55;
+    font-size: clamp(24px, 3vw, 32px);
+    margin-bottom: 15px;
+}
+
+.information h3 {
+    color: #34db55;
+    font-size: clamp(20px, 2.5vw, 28px);
+    margin-bottom: 10px;
+}
+
+.information p {
+    color: #ffffff;
+    line-height: 1.6;
+    margin-bottom: 15px;
+    font-size: clamp(14px, 1.8vw, 16px);
+}
+
+.ssilka {
+    margin-top: 30px;
+}
+
+.ssilka p {
+    background-color: rgb(31, 154, 76);
+    color: #ffffff;
+    text-decoration: none;
+    padding: 15px 30px;
+    font-size: clamp(16px, 2vw, 18px);
+    transition: all 0.4s ease;
+    border-radius: 60px;
+    display: inline-block;
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.ssilka p:hover {
+    transform: scale(1.05);
+    background-color: rgb(25, 135, 65);
+    box-shadow: 0 5px 15px rgba(31, 154, 76, 0.4);
 }
 
 .thumbnails {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  margin-top: 15px;
-  gap: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 20px;
+    gap: 10px;
+    padding: 10px;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+}
+
+.thumbnail.active {
+    border-color: #34db55;
+    transform: scale(1.1);
 }
 
 .video {
-    display:flex;
+    display: flex;
     justify-content: center;
 }
 
 .video iframe {
-  width: 100%;
-  max-width: 800px;
-  height: 56.25vw;
-  max-height: 500px;
-}
-
-.carousel-item img {
-  width: 100%;
-  height: auto;
-  max-width: 600px;
-  max-height: 400px;
-  object-fit: cover;
+    width: 100%;
+    max-width: 900px;
+    height: 56.25vw;
+    max-height: 600px; 
 }
 
 .some-base {
-  width: 100%;
-  max-width: 1200px;
-  margin: 30px auto;
-  padding: 20px;
-  background: linear-gradient(145deg, #000000, #150f0f);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-  border-radius: 15px;
-  font-family: "Arial", sans-serif;
+    width: 100%;
+    max-width: 1400px; 
+    margin: 40px auto;
+    padding: 30px;
+    background: linear-gradient(145deg, #000000, #150f0f);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    border-radius: 15px;
+    font-family: "Arial", sans-serif;
 }
 
 .some-base h1 {
-  color: #249247;
-  font-size: clamp(20px, 3vw, 28px);
-  margin-bottom: 20px;
-  text-align: center;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  border-bottom: 2px solid #34db55;
-  padding-bottom: 10px;
+    color: #249247;
+    font-size: clamp(24px, 3vw, 32px);
+    margin-bottom: 25px;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    border-bottom: 3px solid #34db55;
+    padding-bottom: 15px;
 }
 
 .some-base p {
-  color: #ffffff;
-  line-height: 1.8;
-  font-size: clamp(14px, 2vw, 16px);
-  margin: 0;
-  padding: 0 15px;
+    color: #ffffff;
+    line-height: 1.8;
+    font-size: clamp(16px, 2vw, 18px);
+    margin: 0;
+    padding: 0 10px;
 }
 
-.some-base br {
-  content: "";
-  display: block;
-  margin: 10px 0;
+@media (max-width: 1200px) {
+    .some-information {
+        max-width: 1000px;
+        gap: 30px;
+    }
 }
 
 @media (max-width: 992px) {
-  .some-information {
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-  }
+    .some-information {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        max-width: 800px;
+    }
 
-  .opisanie {
-    text-align: center;
-  }
+    .opisanie {
+        max-width: 600px;
+        width: 100%;
+    }
+
+    .thumbnails {
+        justify-content: center;
+    }
 }
 
 @media (max-width: 768px) {
-  .header {
-    flex-direction: column;
-    text-align: center;
-    gap: 20px;
-  }
+    .header {
+        flex-direction: column;
+        text-align: center;
+        gap: 20px;
+    }
 
-  .image-logo img {
-    max-width: 150px;
-  }
+    .some-information {
+        margin: 0;
+        padding: 0 10px;
+        gap: 20px;
+    }
 
-  .some-information {
-    margin: 0;
-    padding: 0 20px;
-  }
+    .opisanie {
+        padding: 20px;
+    }
 
-  .opisanie {
-    flex-direction: column;
-  }
+    .some-base {
+        padding: 20px;
+        margin: 20px auto;
+    }
 }
 
 @media (max-width: 576px) {
-  .containerrr {
-    padding: 10px;
-  }
+    .containerrr {
+        padding: 15px;
+        gap: 15px;
+    }
 
-  .thumbnail {
-    width: 40px;
-  }
+    .opisanie {
+        padding: 15px;
+    }
 
-  .some-base {
-    padding: 15px;
-  }
+    .ssilka p {
+        padding: 12px 25px;
+    }
+
+    .some-base {
+        padding: 15px;
+    }
+
+    .thumbnails {
+        padding: 5px;
+    }
 }

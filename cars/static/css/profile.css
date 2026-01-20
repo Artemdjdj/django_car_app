@@ -24,3 +24,34 @@
     display:flex;
     justify-content: center;
 }
+
+.add_comment{
+    margin-top:20px;
+    margin-bottom:50px;
+    display:flex;
+    justify-content: center;
+ }
+
+ .review-button {
+    display: inline-block;
+    padding: 12px 24px;
+    background-color:rgb(45, 110, 114);
+    color: white;
+    text-decoration: none;
+    border-radius: 6px;
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.review-button:hover {
+    background-color: rgb(58, 100, 107);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.review-button:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}

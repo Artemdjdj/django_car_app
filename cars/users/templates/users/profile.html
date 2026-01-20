@@ -10,50 +10,59 @@
 
 {% block content %}
     <div class="main_block">
-        <div>
-            <h1>Мои объявления</h1>
-        </div>
-        <div class="menu-items">
-            {% for car in fuel_cars %}
-                <div class="menu-item">
-                    {%if car.get_main_picture %}
-                        <img src="{{car.get_main_picture.url}}" height="225px" ;
-                        width="255px" />
-                    {% endif %}
-                    <h3>{{car.brand}}</h3>
-                    <p>
-                        Цена: {{car.price}}$<br />
-                        Год создания: {{car.year}}<br />
-                        Пробег: {{car.mileage}}км<br />
-                    </p>
-                    <p class="description">
-                        {{ car.description|truncatechars:40 }}
-                    </p>
-                    <div class="menu-item_last">
-                        <a href="{% url 'car:car_info' car.slug %}">Изменить</a>
+        {% if not fuel_cars and not electric_cars%}
+            <div>
+                <h1>Объявлений пока нет</h1>
+            </div>
+        {% else %}
+            <div>
+                <h1>Мои объявления</h1>
+            </div>
+            <div class="menu-items">
+                {% for car in fuel_cars %}
+                    <div class="menu-item">
+                        {%if car.get_main_picture %}
+                            <img src="{{car.get_main_picture.url}}" height="225px" ;
+                            width="255px" />
+                        {% endif %}
+                        <h3>{{car.brand}}</h3>
+                        <p>
+                            Цена: {{car.price}}$<br />
+                            Год создания: {{car.year}}<br />
+                            Пробег: {{car.mileage}}км<br />
+                        </p>
+                        <p class="description">
+                            {{ car.description|truncatechars:40 }}
+                        </p>
+                        <div class="menu-item_last">
+                            <a href="{% url 'car:car_info' car.slug %}">Изменить</a>
+                        </div>
                     </div>
-                </div>
-            {% endfor %}
-            {% for car in electric_cars %}
-                <div class="menu-item">
-                    {%if car.get_main_picture %}
-                        <img src="{{car.get_main_picture.url}}" height="225px" ;
-                        width="255px" />
-                    {% endif %}
-                    <h3>{{car.brand}}</h3>
-                    <p>
-                        Цена: {{car.price}}$<br />
-                        Год создания: {{car.year}}<br />
-                        Пробег: {{car.mileage}}км<br />
-                    </p>
-                    <p class="description">
-                        {{ car.description|truncatechars:40 }}
-                    </p>
-                    <div class="menu-item_last">
-                        <a href="{% url 'car:car_info' car.slug %}">Изменить</a>
+                {% endfor %}
+                {% for car in electric_cars %}
+                    <div class="menu-item">
+                        {%if car.get_main_picture %}
+                            <img src="{{car.get_main_picture.url}}" height="225px" ;
+                            width="255px" />
+                        {% endif %}
+                        <h3>{{car.brand}}</h3>
+                        <p>
+                            Цена: {{car.price}}$<br />
+                            Год создания: {{car.year}}<br />
+                            Пробег: {{car.mileage}}км<br />
+                        </p>
+                        <p class="description">
+                            {{ car.description|truncatechars:40 }}
+                        </p>
+                        <div class="menu-item_last">
+                            <a href="{% url 'car:car_info' car.slug %}">Изменить</a>
+                        </div>
                     </div>
-                </div>
-            {% endfor %}
+                {% endfor %}
+            </div>
+        {% endif %}
+        <div class="add_comment">
+            <a href="{% url 'car:add_new_car' %}" class="review-button">Добавить новое объявление</a>
         </div>
     </div>
 {% endblock content %}
