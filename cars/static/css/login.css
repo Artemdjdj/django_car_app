@@ -99,6 +99,22 @@ body {
 
 }
 
+.or{
+    font-size:00.8rem;
+    margin-top:1.3rem;
+    margin-bottom:1.3rem;
+    text-align:center;
+}
+
+.icons i{
+    padding:00.8rem 1.5rem;
+    border-radius:10px;
+    margin-left:1.9rem;
+    font-size:1.5rem;
+    cursor:pointer;
+    border:2px solid rgb(74, 108, 75);
+}
+
 .wrapper .register_link {
     font-size: 15px;
     font-weight: 500;

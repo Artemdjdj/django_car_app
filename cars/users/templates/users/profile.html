@@ -35,7 +35,7 @@
                             {{ car.description|truncatechars:40 }}
                         </p>
                         <div class="menu-item_last">
-                            <a href="{% url 'car:car_info' car.slug %}">Изменить</a>
+                            <a href="{% url 'car:edit_car' 'fuel_car' car.slug %}">Изменить</a>
                         </div>
                     </div>
                 {% endfor %}
@@ -55,7 +55,7 @@
                             {{ car.description|truncatechars:40 }}
                         </p>
                         <div class="menu-item_last">
-                            <a href="{% url 'car:car_info' car.slug %}">Изменить</a>
+                            <a href="{% url 'car:edit_car' 'electro_car' car.slug %}">Изменить</a>
                         </div>
                     </div>
                 {% endfor %}

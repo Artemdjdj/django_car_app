@@ -11,3 +11,4 @@ cars/db.sqlite3
 cars/users/migrations
 cars/users/__pycache__
 images/
+cars/cars/.env

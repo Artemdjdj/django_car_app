@@ -1,7 +1,9 @@
 from django import forms
 from .models import CarBrand, FuelCar, ElectricCar, CarCategory, CarModel, FuelCarImage, ElectricCarImage
-
+from multiupload.fields import MultiFileField     
+        
 class BaseCarForm(forms.ModelForm):
+    images = MultiFileField(min_num=0, max_num=10, required=False, attrs={'class': 'form-control'})
     category = forms.CharField()
     model = forms.CharField()
     price = forms.IntegerField()
@@ -14,8 +16,7 @@ class BaseCarForm(forms.ModelForm):
     description = forms.CharField(widget=forms.Textarea, required=False)
     country = forms.CharField(required=False)
     color = forms.CharField()
-    
-    
+
 class FuelCarForm(BaseCarForm):
     fuel_type = forms.ChoiceField(
         choices=FuelCar.FUEL_TYPES,
@@ -28,7 +29,6 @@ class FuelCarForm(BaseCarForm):
     engine_displacement = forms.IntegerField(required=False)
     fuel_consumption = forms.FloatField()
     fuel_tank_capacity = forms.IntegerField()
-    
     class Meta:
         model = FuelCar
         fields = [
@@ -44,21 +44,22 @@ class FuelCarForm(BaseCarForm):
             'transmission',
             'engine_displacement',
             'fuel_consumption',
-            'fuel_tank_capacity'
+            'fuel_tank_capacity',
+            
         ]
         
         widgets = {
             'date_of_technical_maintenance': forms.DateInput(attrs={'type': 'date'}),
             'description': forms.Textarea(attrs={'rows': 4}),
         }
-
-
+        
 class ElectricCarForm(BaseCarForm):
     battery_capacity = forms.CharField()
     range = forms.CharField()
     charging_time = forms.CharField()
     motor_power = forms.CharField()
-    class Meta():
+    class Meta:
+        model = FuelCar
         model = ElectricCar
         fields = [
             'price',
@@ -74,18 +75,8 @@ class ElectricCarForm(BaseCarForm):
             'charging_time',
             'motor_power'
         ]
-
-class BaseCarImageForm(forms.ModelForm):
-    class Meta:
-        fields = [
-            'image',
-            'is_main',
-        ]
-
-class FuelCarImageForm(BaseCarImageForm):
-    class Meta(BaseCarImageForm.Meta):
-        model = FuelCarImage
-
-class ElectricCarImageForm(BaseCarImageForm):
-    class Meta(BaseCarImageForm.Meta):
-        model = ElectricCarImage
+        
+        widgets = {
+            'date_of_technical_maintenance': forms.DateInput(attrs={'type': 'date'}),
+            'description': forms.Textarea(attrs={'rows': 4}),
+        }

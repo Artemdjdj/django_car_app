@@ -1,17 +1,16 @@
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
-from .models import FuelCar, ElectricCar, CarBrand, CarCategory, CarModel
+from .models import FuelCar, ElectricCar, CarBrand, CarCategory, CarModel, FuelCarImage, ElectricCarImage
 from django.core.paginator import Paginator
 from .utils import filter_fuel_car, filter_electric_car, get_all_cars
 from django.contrib.auth.decorators import login_required
 from itertools import chain
 from django.db.models import Q
-from .forms import FuelCarForm, ElectricCarForm, FuelCarImageForm, ElectricCarImageForm
+from .forms import FuelCarForm, ElectricCarForm
 
 def catalog(request, category_slug):
     page_number = request.GET.get("page")
-    # order_by = request.GET.get("order_by", None)
     search_type = request.GET.get("search_type", None)
     selected_brand = request.GET.get("brand", None)
     
@@ -24,8 +23,6 @@ def catalog(request, category_slug):
         cars = filter_electric_car(request)
         brands = CarBrand.objects.filter(Q(is_fuel_brand=False) | Q(is_fuel_brand__isnull=True))
     
-    # brands = CarBrand.objects.all()
-    
     models = None
     if selected_brand  and selected_brand!="default":
         my_brand = CarBrand.objects.get(name = selected_brand)
@@ -34,11 +31,6 @@ def catalog(request, category_slug):
             models = models.filter(is_fuel_model = True)
         elif search_type == "electro_car":
             models = models.filter(is_fuel_model = False)
-            
-    
-    #orders
-    # if order_by and order_by!= "default":
-    #     cars = cars.order_by(order_by)
     
     #pagination
     paginator = Paginator(cars,3)
@@ -72,8 +64,6 @@ def car_info(request, car_slug):
         }
         return render(request, 'car/car.html', context)
     
-    
-    
 @login_required
 def add_new_car(request):
     models = None
@@ -91,31 +81,34 @@ def add_new_car(request):
             brands = CarBrand.objects.filter(Q(is_fuel_brand=True) | Q(is_fuel_brand__isnull=True))
         action = request.POST.get('action')
         if action == 'create_car':
+            
             form = FuelCarForm(data=request.POST) if type_of_form=="fuel_car" else ElectricCarForm(data=request.POST)
             brand_id = request.POST.get('brand')
             model_name = request.POST.get('model')
             category_id = request.POST.get('category')
-
+            images = request.FILES.getlist("images")
+                
             if form.is_valid():
-                new_form = form.save(commit=False)
                 brand = CarBrand.objects.get(id=int(brand_id))
                 model = CarModel.objects.get(name__iexact=model_name)
                 category = CarCategory.objects.get(id=int(category_id))
-
+                new_form = form.save(commit=False)
                 new_form.brand = brand
                 new_form.category = category
                 new_form.model = model
                 new_form.user = request.user
                 new_form.save()
-
                 car_slug = new_form.slug
-                return HttpResponseRedirect(reverse('car:add_car_image', kwargs={
-                    'type_of_car_slug':type_of_form,
-                    'car_slug': car_slug,
-                }))
+                for i,image in enumerate(images):
+                    is_main = True if i==0 else False
+                    if type_of_form == "fuel_car":
+                        FuelCarImage.objects.create(image=image, car=new_form, is_main=is_main)
+                    else:
+                        ElectricCarImage.objects.create(image=image, car=new_form, is_main=is_main)
+                    
+                return HttpResponseRedirect(reverse('user:profile'))
         else:
             selected_brand = request.POST.get('brand')
-            type_of_form = request.POST.get('type_of_form')
             if selected_brand:
                 my_brand = CarBrand.objects.get(id = selected_brand)
                 selected_brand_name =my_brand.name
@@ -149,31 +142,106 @@ def add_new_car(request):
     return render(request, 'car/add_new_car.html', context)
 
 
-@login_required
-def add_car_image(request, type_of_car_slug, car_slug):
-    form = None
-    if request.method == "POST":
-        form = FuelCarImageForm(request.POST, request.FILES) if type_of_car_slug == 'fuel_car' else ElectricCarImageForm(request.POST, request.FILES)
-        if form.is_valid():
-            new_form = form.save(commit=False)
-            car = FuelCar.objects.get(slug=car_slug) if type_of_car_slug=='fuel_car' else ElectricCar.objects.get(slug=car_slug)
-            new_form.car = car
-            new_form.save()
+# @login_required
+# def add_car_image(request, type_of_car_slug, car_slug):
+#     form = None
+#     if request.method == "POST":
+#         form = FuelCarImageForm(request.POST, request.FILES) if type_of_car_slug == 'fuel_car' else ElectricCarImageForm(request.POST, request.FILES)
+#         if form.is_valid():
+#             new_form = form.save(commit=False)
+#             car = FuelCar.objects.get(slug=car_slug) if type_of_car_slug=='fuel_car' else ElectricCar.objects.get(slug=car_slug)
+#             new_form.car = car
+#             new_form.save()
 
-            if request.POST.get('action')=="save_and_next":
+#             if request.POST.get('action')=="save_and_next":
+#                 return HttpResponseRedirect(reverse('car:add_car_image', kwargs={
+#                     'type_of_car_slug': type_of_car_slug,
+#                     'car_slug': car_slug,
+#                 }))
+#             else:
+#                 return HttpResponseRedirect(reverse('user:profile'))
+#     else:
+#         form = FuelCarImageForm()  if type_of_car_slug == 'fuel_car' else ElectricCarImageForm()
+    
+#     context = {
+#         'form':form,
+#         'type_of_car_slug':type_of_car_slug,
+#         'car_slug':car_slug,
+#     }
+    
+#     return render(request, 'car/add_image_to_car.html', context)
+
+
+@login_required
+def edit_car(request, type_of_car, car_slug):
+    models = None
+    selected_brand = None
+    selected_model = None
+    selected_brand_name = None
+    form = None
+    car = FuelCar.objects.get(slug=car_slug) if type_of_car == 'fuel_car' else ElectricCar.objects.get(slug=car_slug)
+    categories = CarCategory.objects.exclude(slug='vse-kategorii')
+    if request.method == "POST":
+        type_of_form = request.POST.get('type_of_form')
+        selected_model = request.POST.get('model')
+        if type_of_form and type_of_form == 'electro_car':
+            brands = CarBrand.objects.filter(Q(is_fuel_brand=False) | Q(is_fuel_brand__isnull=True))
+        else:
+            brands = CarBrand.objects.filter(Q(is_fuel_brand=True) | Q(is_fuel_brand__isnull=True))
+        action = request.POST.get('action')
+        if action == 'create_car':
+            form = FuelCarForm(data=request.POST,instance=car) if type_of_form == "fuel_car" else ElectricCarForm(data=request.POST, instance=car)
+            brand_id = request.POST.get('brand')
+            model_name = request.POST.get('model')
+            category_id = request.POST.get('category')
+
+            if form.is_valid():
+                new_form = form.save(commit=False)
+                brand = CarBrand.objects.get(id=int(brand_id))
+                model = CarModel.objects.get(name__iexact=model_name)
+                category = CarCategory.objects.get(id=int(category_id))
+
+                new_form.brand = brand
+                new_form.category = category
+                new_form.model = model
+                new_form.user = request.user
+                new_form.save()
+
+                car_slug = new_form.slug
                 return HttpResponseRedirect(reverse('car:add_car_image', kwargs={
-                    'type_of_car_slug': type_of_car_slug,
+                    'type_of_car_slug': type_of_form,
                     'car_slug': car_slug,
                 }))
-            else:
-                return HttpResponseRedirect(reverse('user:profile'))
+        else:
+            selected_brand = request.POST.get('brand')
+            type_of_form = request.POST.get('type_of_form')
+            if selected_brand:
+                my_brand = CarBrand.objects.get(id=selected_brand)
+                selected_brand_name = my_brand.name
+                models = CarModel.objects.filter(brand=my_brand.id) if selected_brand else None
+                if type_of_form and type_of_form == 'fuel_car':
+                    form = FuelCarForm(data=request.POST, instance=car)
+                    models = models.filter(is_fuel_model=True)
+                else:
+                    form = ElectricCarForm(data=request.POST, instance=car)
+                    models = models.filter(is_fuel_model=False)
     else:
-        form = FuelCarImageForm()  if type_of_car_slug == 'fuel_car' else ElectricCarImageForm()
-    
+        if type_of_car and type_of_car == 'electro_car':
+            form = ElectricCarForm(instance=car)
+            brands = CarBrand.objects.filter(Q(is_fuel_brand=False) | Q(is_fuel_brand__isnull=True))
+        else:
+            form = FuelCarForm(instance=car)
+            brands = CarBrand.objects.filter(Q(is_fuel_brand=True) | Q(is_fuel_brand__isnull=True))
+
     context = {
-        'form':form,
-        'type_of_car_slug':type_of_car_slug,
-        'car_slug':car_slug,
+        'form': form,
+        'brands': brands,
+        'models': models,
+        'categories': categories,
+        'selected_brand': selected_brand,
+        'selected_brand_name': selected_brand_name,
+        'selected_model': selected_model,
+        'type_of_form': type_of_car,
     }
-    
-    return render(request, 'car/add_image_to_car.html', context)
+
+    return render(request, 'car/edit_car.html', context)

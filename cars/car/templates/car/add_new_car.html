@@ -176,13 +176,19 @@
                         </div>
 
                         <div class="col-md-6 mb-3">
+                            <label for="formFileMultiple" class="form-label">Загрузить изображения</label>
+                            {{ form.images }}
+                            <!-- <input class="form-control" type="file" id="formFile" accept="image/*"> -->
+                        </div>
+
+                        <div class="col-md-6 mb-3">
                             <label for="is_broken">
                                 <input type="checkbox" class="form-check-input" id="is_broken" name="is_broken" 
                                     {% if form_data.is_broken %}checked{% endif %}>
                                 Попадание в ДТП
                             </label>
                         </div>
-
+        
                         <div class ="send_button">
                             <button type="submit" class="btn btn-outline-success" name="action" value="create_car">Создать автомобиль</button>
                         </div>
@@ -300,6 +306,11 @@
                             <input type="number" class="form-control" id="motor_power" name="motor_power" {% if action == 'create_car' %}required{% endif %}
                                 value="{{ form_data.motor_power|default:'' }}">
                         </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="formFileMultiple" class="form-label">Загрузить изображения</label>
+                            {{ form.images }}
+                            <!-- <input class="form-control" type="file" id="formFile" accept="image/*"> -->
+                        </div>
 
                         <div class="col-md-6 mb-3">
                             <label for="is_broken">
@@ -308,7 +319,6 @@
                                 Попадание в ДТП
                             </label>
                         </div>
-
                         <div class ="send_button">
                             <button type="submit" class="btn btn-outline-success" name="action" value="create_car">Создать автомобиль</button>
                         </div>

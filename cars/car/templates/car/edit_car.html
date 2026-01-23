@@ -1,0 +1,325 @@
+{% extends "layouts/base.html" %}
+{% load static %}
+
+{% block css %}
+<link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+    integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM"
+    crossorigin="anonymous" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link
+    href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+    rel="stylesheet">
+<link
+    href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Fjalla+One&family=Playwrite+VN:wght@100..400&display=swap"
+    rel="stylesheet">
+<link rel="stylesheet" href="{% static 'css/find_car.css' %}">
+<link rel="stylesheet" href="{% static 'css/main.css' %}" >
+{% endblock css %}
+
+{% block header %}
+{% endblock header %}
+
+{% block content %}
+
+<div class="row">
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+           <div class="col-md-9 bg-dark text-light p-4 mb-5 mx-2 rounded custom-shadow">
+                <h2 class="text-center mb-4">Добавление объявления</h2>
+                <div class="form_of_type_of_car">
+                    <div class="main_in_form">
+                        <form action="{% url 'car:add_new_car' %}" method="get" id="form_selector_form">
+                            <div class="container">
+                                <div class="row justify-content-center">
+                                    <div class="col-md-6 col-lg-4">
+                                        <label for="form_selector" class="form-label">Выберите тип автомобиля</label>
+                                        <select class="form-select" id="form_selector" name="type_of_form" onchange="this.form.submit()">
+                                            <option value="fuel_car" {% if not type_of_form or type_of_form == 'fuel_car' %}selected{% endif %}>Автомобиль на топливе</option>
+                                            <option value="electro_car" {% if type_of_form == 'electro_car' %}selected{% endif %}>Электромобиль</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                {% if not type_of_form or type_of_form == 'fuel_car' %}
+                <form action="{% url 'car:add_new_car' %}" method="post" enctype="multipart/form-data">
+                <input type="hidden" name="type_of_form" value="fuel_car">
+                {% csrf_token %}
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="brand">Марка:</label>
+                            <select id="brand" class="form-select" name="brand" required onchange="this.form.submit()" value="{{form.brand.value}}">
+                                <option value="">Выберите марку</option>
+                                {% for brand in brands %}
+                                    <option {% if form.brand.value and form.brand.value == brand.id %}selected{% endif %} value="{{ brand.id }}">{{ brand.name }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label for="model">Модель:</label>
+                            <select id="model" class="form-select" name="model" {% if action == 'create_car' %}required{% endif %}>
+                                <option value="">Выберите модель</option>
+                                {% if models %}
+                                    {% for model in models %}
+                                        <option value="{{ model.name}}" {% if form.model.value and form.model.value == model.name %}selected{% endif %}>
+                                            {{ model.name }}
+                                        </option>
+                                    {% endfor %}
+                                {% endif %}
+                            </select>
+                            {% if not models and selected_brand_id %}
+                                <p>Для выбранной марки нет доступных моделей</p>
+                            {% endif %}
+                        </div>
+
+                        <!-- <div class ="send_button">
+                            <button type="submit" class="btn btn-outline-info" name="action" value="get_models">Обновить список моделей</button>
+                        </div> -->
+
+                        <div class="col-md-6 mb-3">
+                            <label for="category">Категория:</label>
+                            <select id="category" class="form-select" name="category" {% if action == 'create_car' %}required{% endif %}>
+                                <option value="{{form.category.value}}">{{form.category.value}}</option>
+                                {% for category in categories %}
+                                    <option value="{{ category.id }}" {% if selected_category_id == category.id %}selected{% endif %}>
+                                        {{ category.name }}
+                                    </option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    
+                        
+                        <div class="col-md-6 mb-3">
+                            <label for="price">Цена:</label>
+                            <input type="number" class="form-control" id="price" name="price" 
+                                step="0.001" min="0" {% if action == 'create_car' %}required{% endif %}
+                                value="{{ form.price.value|default:'' }}">
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label for="mileage">Пробег:</label>
+                            <input type="number" class="form-control" id="mileage" name="mileage" 
+                                step="0.001" min="0" {% if action == 'create_car' %}required{% endif %}
+                                value="{{ form.mileage.value|default:'' }}">
+                        </div>
+                        
+                        <div class="col-md-6 mb-3">
+                            <label for="year_produced">Год производства:</label>
+                            <input type="number" class="form-control" id="year_produced" name="year_produced" 
+                                min="1900" max="{% now 'Y' %}" {% if action == 'create_car' %}required{% endif %}
+                                value="{{ form.year_produced.value|default:'' }}">
+                        </div>
+                        
+                        <div class="col-md-6 mb-3">
+                            <label for="date_of_technical_maintenance">Дата последнего ТО:</label>
+                            <input type="date" class="form-control" id="date_of_technical_maintenance" name="date_of_technical_maintenance"
+                                {% if action == 'create_car' %}required{% endif %} value="{{ form.date_of_technical_maintenance.value|default:'' }}"> 
+                        </div>
+                        
+                        <div class="col-md-6 mb-3">
+                            <label for="description">Описание:</label>
+                            <textarea class="form-control" id="description" name="description" rows="4" {% if action == 'create_car' %}required{% endif %}>{{ form.description.value|default:'' }}</textarea>
+                        </div>
+                        
+                        <div class="col-md-6 mb-3">
+                            <label for="country">Страна производства:</label>
+                            <input type="text" class="form-control" id="country" name="country"
+                               {% if action == 'create_car' %}required{% endif %} value="{{ form.country.value|default:'' }}">
+                        </div>
+                        
+                        <div class="col-md-6 mb-3">
+                            <label for="color">Цвет:</label>
+                            <input type="text" class="form-control" id="color" name="color" {% if action == 'create_car' %}required{% endif %}
+                                value="{{ form.color.value|default:'' }}">
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label for="fuel_type" class="form-label">Тип топлива</label>
+                            <select class="form-select" aria-label="Default select example" name="fuel_type" {% if action == 'create_car' %}required{% endif %}>
+                                <option {% if form.type_of_oil.value == "gasoline" %}selected{% endif %} value="gasoline">Бензин</option>
+                                <option {% if form.type_of_oil.value  == "diesel" %}selected{% endif %} value="diesel">Дизель</option>
+                                <option {% if form.type_of_oil.value  == "gas" %}selected{% endif %} value="gas">Газ</option>
+                            </select>
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label for="transmission" class="form-label" {% if action == 'create_car' %}required{% endif %}>Тип коробки передач</label>
+                            <select class="form-select" aria-label="Default select example" name="transmission">
+                                <option {% if form.type_of_transmission.value == "mechanical" %}selected{% endif %} value="mechanical">Механическая</option>
+                                <option {% if form.type_of_transmission.value == "automatic" %}selected{% endif %} value="automatic">Автоматическая</option>
+                                <option {% if form.type_of_transmission.value == "robotic" %}selected{% endif %} value="robotic">Робот</option>
+                            </select>
+                        </div>
+                        
+                        <div class="col-md-6 mb-3">
+                            <label for="engine_displacement">Объем двигателя:</label>
+                            <input type="number" class="form-control" id="engine_displacement" name="engine_displacement" {% if action == 'create_car' %}required{% endif %}
+                                value="{{ form.engine_displacement.value|default:'' }}">
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label for="fuel_consumption">Расход топлива (л/100км):</label>
+                            <input type="number" class="form-control" id="fuel_consumption" name="fuel_consumption" {% if action == 'create_car' %}required{% endif %}
+                                value="{{ form.fuel_consumption.value|default:'' }}">
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label for="fuel_tank_capacity">Объем топливного бака (л):</label>
+                            <input type="number" class="form-control" id="fuel_tank_capacity" name="fuel_tank_capacity" {% if action == 'create_car' %}required{% endif %}
+                                value="{{ form.fuel_tank_capacity.value|default:'' }}">
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label for="is_broken">
+                                <input type="checkbox" class="form-check-input" id="is_broken" name="is_broken" 
+                                    {% if form.is_broken.value %}checked{% endif %}>
+                                Попадание в ДТП
+                            </label>
+                        </div>
+
+                        <div class ="send_button">
+                            <button type="submit" class="btn btn-outline-success" name="action" value="create_car">Создать автомобиль</button>
+                        </div>
+                    </div>
+                </form>
+                {% elif type_of_form == 'electro_car' %}
+                    <form action="{% url 'car:add_new_car' %}" method="post">
+                        <input type="hidden" name="type_of_form" value="electro_car">
+                        {% csrf_token %}
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="brand">Марка:</label>
+                            <select id="brand" class="form-select" name="brand" required onchange="this.form.submit()">
+                                <option value="">Выберите марку</option>
+                                 {% for brand in brands %}
+                                    <option {% if selected_brand and selected_brand_name == brand.name %}selected{% endif %} value="{{ brand.id }}">{{ brand.name }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+
+                         <div class="col-md-6 mb-3">
+                            <label for="model">Модель:</label>
+                            <select id="model" class="form-select" name="model" {% if action == 'create_car' %}required{% endif %}>
+                                <option value="">Выберите модель</option>
+                                {% if models %}
+                                    {% for model in models %}
+                                        <option value="{{ model.name}}" {% if selected_model and selected_model == model.id %}selected{% endif %}>
+                                            {{ model.name }}
+                                        </option>
+                                    {% endfor %}
+                                {% endif %}
+                            </select>
+                            {% if not models and selected_brand_id %}
+                                <p>Для выбранной марки нет доступных моделей</p>
+                            {% endif %}
+                        </div>
+
+                        <!-- <div class ="send_button">
+                            <button type="submit" class="btn btn-outline-info" name="action" value="get_models">Обновить список моделей</button>
+                        </div> -->
+
+                        <div class="col-md-6 mb-3">
+                            <label for="category">Категория:</label>
+                            <select id="category" class="form-select" name="category" {% if action == 'create_car' %}required{% endif %}>
+                                <option value="">Выберите категорию</option>
+                                {% for category in categories %}
+                                    <option value="{{ category.id }}" {% if selected_category_id == category.id %}selected{% endif %}>
+                                        {{ category.name }}
+                                    </option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    
+                        
+                        <div class="col-md-6 mb-3">
+                            <label for="price">Цена:</label>
+                            <input type="number" class="form-control" id="price" name="price" 
+                                step="0.001" min="0" {% if action == 'create_car' %}required{% endif %}
+                                value="{{ form.price|default:'' }}">
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label for="mileage">Пробег:</label>
+                            <input type="number" class="form-control" id="mileage" name="mileage" 
+                                step="0.001" min="0" {% if action == 'create_car' %}required{% endif %}
+                                value="{{ form.mileage|default:'' }}">
+                        </div>
+                        
+                        <div class="col-md-6 mb-3">
+                            <label for="year_produced">Год производства:</label>
+                            <input type="number" class="form-control" id="year_produced" name="year_produced" 
+                                min="1900" max="{% now 'Y' %}" {% if action == 'create_car' %}required{% endif %}
+                                value="{{ form.year_produced|default:'' }}">
+                        </div>
+                        
+                        <div class="col-md-6 mb-3">
+                            <label for="date_of_technical_maintenance">Дата последнего ТО:</label>
+                            <input type="date" class="form-control" id="date_of_technical_maintenance" name="date_of_technical_maintenance"
+                                 {% if action == 'create_car' %}required{% endif %} value="{{ form.date_of_technical_maintenance|default:'' }}">
+                        </div>
+                        
+                        <div class="col-md-6 mb-3">
+                            <label for="description">Описание:</label>
+                            <textarea class="form-control" id="description" name="description" rows="4" {% if action == 'create_car' %}required{% endif %}>{{ form.description|default:'' }}</textarea>
+                        </div>
+                        
+                        <div class="col-md-6 mb-3">
+                            <label for="country">Страна производства:</label>
+                            <input type="text" class="form-control" id="country" name="country"
+                               {% if action == 'create_car' %}required{% endif %} value="{{ form.country|default:'' }}">
+                        </div>
+                        
+                        <div class="col-md-6 mb-3">
+                            <label for="color">Цвет:</label>
+                            <input type="text" class="form-control" id="color" name="color" {% if action == 'create_car' %}required{% endif %}
+                                value="{{ form.color|default:'' }}">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="battery_capacity">Емкость батареи (кВт⋅ч):</label>
+                            <input type="number" class="form-control" id="fbattery_capacity" name="battery_capacity" {% if action == 'create_car' %}required{% endif %}
+                                value="{{ form.battery_capacity|default:'' }}">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="range">Запас хода (км):</label>
+                            <input type="number" class="form-control" id="range" name="range" {% if action == 'create_car' %}required{% endif %}
+                                value="{{ form.range|default:'' }}">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="charging_time">Время полной зарядки (ч):</label>
+                            <input type="number" class="form-control" id="charging_time" name="charging_time" {% if action == 'create_car' %}required{% endif %}
+                                value="{{ form.charging_time|default:'' }}">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="motor_power">Мощность двигателя (кВт):</label>
+                            <input type="number" class="form-control" id="motor_power" name="motor_power" {% if action == 'create_car' %}required{% endif %}
+                                value="{{ form.motor_power|default:'' }}">
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label for="is_broken">
+                                <input type="checkbox" class="form-check-input" id="is_broken" name="is_broken" 
+                                    {% if form.is_broken %}checked{% endif %}>
+                                Попадание в ДТП
+                            </label>
+                        </div>
+
+                        <div class ="send_button">
+                            <button type="submit" class="btn btn-outline-success" name="action" value="create_car">Создать автомобиль</button>
+                        </div>
+                    </div>
+                    </form>
+                {%endif%}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}
+
+{% block footer %}
+{% endblock footer %}

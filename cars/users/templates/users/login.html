@@ -1,8 +1,11 @@
 {% extends 'layouts/base.html'%}
 {% load static %}
+{% load account %}
+{% load socialaccount %}
 
 {% block css %}
     <link rel="stylesheet" href="{% static 'css/login.css'%}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 {% endblock css %}
 
@@ -32,7 +35,15 @@
                 <a href="#">Забыли пароль?</a>
             </div>
 
+
         <button type="submit" class="btn">Войти</button>
+
+        <p class="or">Авторизоваться через соцсети</p>
+        <div class="icons"> 
+            <a href="{% provider_login_url 'google'%}"><i class="fab fa-google"></i></a>
+            <i class="fab fa-yandex"></i>
+            <i class="fab fa-facebook"></i>
+        </div>
         <div class="register_link">
             <p>Нет аккаунта?<a href="{% url 'user:registration' %}"> Зарегистрироваться</a></p>
         </div>

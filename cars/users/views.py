@@ -28,12 +28,13 @@ def login(request):
 
 
 def registration(request):
+    BACKEND = 'django.contrib.auth.backends.ModelBackend'
     if request.method == "POST":
         form = UserRegistrationForm(data = request.POST)
         if form.is_valid():
             form.save()
             user = form.instance
-            auth.login(request, user)
+            auth.login(request, user, backend=BACKEND)
             return HttpResponseRedirect(reverse('main:index'))
             # return HttpResponseRedirect(reverse('user:login'))
     else:
